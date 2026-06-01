@@ -8,7 +8,14 @@ namespace JuegoLoteriaPOO
             InitializeComponent();
             gestor = new GestorPartida();
         }
-        private void btnSiguiente_Click(object sender, EventArgs e)
+
+        private void MostrarCarta(Carta carta)
+        {
+            lblNombreCarta.Text = carta.Nombre;
+            pbCartaActual.Image = carta.RutaImagen;
+        }
+
+        private void bttnSiguiente_Click(object sender, EventArgs e)
         {
             Carta carta = gestor.SiguienteCarta();
 
@@ -19,12 +26,6 @@ namespace JuegoLoteriaPOO
             }
 
             MostrarCarta(carta);
-        }
-
-        private void MostrarCarta(Carta carta)
-        {
-            lblNombreCarta.Text = carta.Nombre;
-            pbCartaActual.Image = Image.FromFile(carta.RutaImagen);
         }
     }
 }

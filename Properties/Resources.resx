@@ -118,67 +118,166 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="El Alacran" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Alacran.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Alacran" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Alacran.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Apache" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Apache.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Apache" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Apache.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Arbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Arbol.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Arbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Arbol.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Arpa" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Arpa.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Arpa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Arpa.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Bandolon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Bandolon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Bandolon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Bandolon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Barril" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Barril.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Barril" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Barril.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Borracho" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Borracho.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Borracho" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Borracho.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Camaron" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Camaron.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Camaron" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Camaron.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Cantarito" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Cantarito.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Cantarito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Cantarito.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Catrin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Catrin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Catrin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Catrin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Cazo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Cazo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Cazo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Cazo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Corazon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Corazon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Corazon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Corazon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El Cotorro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Cotorro.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Cotorro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Cotorro.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="El diablito" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El diablito.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="El_Diablito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Diablito.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="El_Gallo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\El Gallo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\El_Gallo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="La Pera" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\La Pera.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Gorrito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Gorrito.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="La Rana" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\La Rana.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Melon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Melon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="La Rosa" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\La Rosa.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Mundo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Mundo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="La Sandia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\La Sandia.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Musico" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Musico.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="La Sirena" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\La Sirena.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Negrito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Negrito.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Las Jaras" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Las Jaras.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="El_Nopal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Nopal.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Pajaro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Pajaro.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Paraguas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Paraguas.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Pescado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Pescado.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Pino" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Pino.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Sol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Sol.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Soldado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Soldado.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Tambor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Tambor.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Valiente" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Valiente.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Venado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Venado.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="El_Violoncello" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\El_Violoncello.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Las_Jaras" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Las_Jaras.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Araña" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Araña.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Bandera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Bandera.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Bota" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Bota.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Botella" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Botella.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Calavera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Calavera.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Campana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Campana.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Chalupa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Chalupa.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Corona" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Corona.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Dama" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Dama.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Escalera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Escalera.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Estrella" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Estrella.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Garza" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Garza.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Luna" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Luna.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Maceta" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Maceta.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Mano" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Mano.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Muerte" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Muerte.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Palma" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Palma.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Pera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Pera.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Rana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Rana.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Rosa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Rosa.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Sandia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Sandia.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="La_Sirena" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\La_Sirena.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

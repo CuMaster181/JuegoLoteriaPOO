@@ -8,7 +8,7 @@ namespace JuegoLoteriaPOO
 {
     internal class Partida
     {
-        public List<int> CartasCantadas { get; private set; }
+        public List<int> HistorialCartas { get; private set; }
 
         public Carta CartaActual { get; private set; }
 
@@ -16,27 +16,27 @@ namespace JuegoLoteriaPOO
 
         public Partida()
         {
-            CartasCantadas = new List<int>();
+            HistorialCartas = new List<int>();
             PartidaTerminada = false;
         }
 
         public bool CartaYaSalio(int idCarta)
         {
-            return CartasCantadas.Contains(idCarta);
+            return HistorialCartas.Contains(idCarta);
         }
 
         public void CantarCarta(Carta carta)
         {
-            if (!CartasCantadas.Contains(carta.Id))
+            if (!HistorialCartas.Contains(carta.Id))
             {
-                CartasCantadas.Add(carta.Id);
+                HistorialCartas.Add(carta.Id);
                 CartaActual = carta;
             }
         }
 
         public int TotalCartasCantadas()
         {
-            return CartasCantadas.Count;
+            return HistorialCartas.Count;
         }
     }
 }

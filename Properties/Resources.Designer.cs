@@ -65,7 +65,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Alacran {
             get {
-                object obj = ResourceManager.GetObject("El Alacran", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Alacran", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Apache {
             get {
-                object obj = ResourceManager.GetObject("El Apache", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Apache", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Arbol {
             get {
-                object obj = ResourceManager.GetObject("El Arbol", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Arbol", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,7 +95,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Arpa {
             get {
-                object obj = ResourceManager.GetObject("El Arpa", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Arpa", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -105,7 +105,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Bandolon {
             get {
-                object obj = ResourceManager.GetObject("El Bandolon", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Bandolon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -115,7 +115,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Barril {
             get {
-                object obj = ResourceManager.GetObject("El Barril", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Barril", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -125,7 +125,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Borracho {
             get {
-                object obj = ResourceManager.GetObject("El Borracho", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Borracho", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -135,7 +135,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Camaron {
             get {
-                object obj = ResourceManager.GetObject("El Camaron", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Camaron", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -145,7 +145,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Cantarito {
             get {
-                object obj = ResourceManager.GetObject("El Cantarito", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Cantarito", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -155,7 +155,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Catrin {
             get {
-                object obj = ResourceManager.GetObject("El Catrin", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Catrin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -165,7 +165,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Cazo {
             get {
-                object obj = ResourceManager.GetObject("El Cazo", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Cazo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -175,7 +175,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Corazon {
             get {
-                object obj = ResourceManager.GetObject("El Corazon", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Corazon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -185,18 +185,18 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap El_Cotorro {
             get {
-                object obj = ResourceManager.GetObject("El Cotorro", resourceCulture);
+                object obj = ResourceManager.GetObject("El_Cotorro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Byte[].
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] El_diablito {
+        internal static System.Drawing.Bitmap El_Diablito {
             get {
-                object obj = ResourceManager.GetObject("El diablito", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("El_Diablito", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -213,9 +213,339 @@ namespace JuegoLoteriaPOO.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap El_Gorrito {
+            get {
+                object obj = ResourceManager.GetObject("El_Gorrito", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Melon {
+            get {
+                object obj = ResourceManager.GetObject("El_Melon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Mundo {
+            get {
+                object obj = ResourceManager.GetObject("El_Mundo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Musico {
+            get {
+                object obj = ResourceManager.GetObject("El_Musico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Negrito {
+            get {
+                object obj = ResourceManager.GetObject("El_Negrito", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Nopal {
+            get {
+                object obj = ResourceManager.GetObject("El_Nopal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Pajaro {
+            get {
+                object obj = ResourceManager.GetObject("El_Pajaro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Paraguas {
+            get {
+                object obj = ResourceManager.GetObject("El_Paraguas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Pescado {
+            get {
+                object obj = ResourceManager.GetObject("El_Pescado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Pino {
+            get {
+                object obj = ResourceManager.GetObject("El_Pino", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Sol {
+            get {
+                object obj = ResourceManager.GetObject("El_Sol", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Soldado {
+            get {
+                object obj = ResourceManager.GetObject("El_Soldado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Tambor {
+            get {
+                object obj = ResourceManager.GetObject("El_Tambor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Valiente {
+            get {
+                object obj = ResourceManager.GetObject("El_Valiente", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Venado {
+            get {
+                object obj = ResourceManager.GetObject("El_Venado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap El_Violoncello {
+            get {
+                object obj = ResourceManager.GetObject("El_Violoncello", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Araña {
+            get {
+                object obj = ResourceManager.GetObject("La_Araña", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Bandera {
+            get {
+                object obj = ResourceManager.GetObject("La_Bandera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Bota {
+            get {
+                object obj = ResourceManager.GetObject("La_Bota", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Botella {
+            get {
+                object obj = ResourceManager.GetObject("La_Botella", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Calavera {
+            get {
+                object obj = ResourceManager.GetObject("La_Calavera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Campana {
+            get {
+                object obj = ResourceManager.GetObject("La_Campana", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Chalupa {
+            get {
+                object obj = ResourceManager.GetObject("La_Chalupa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Corona {
+            get {
+                object obj = ResourceManager.GetObject("La_Corona", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Dama {
+            get {
+                object obj = ResourceManager.GetObject("La_Dama", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Escalera {
+            get {
+                object obj = ResourceManager.GetObject("La_Escalera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Estrella {
+            get {
+                object obj = ResourceManager.GetObject("La_Estrella", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Garza {
+            get {
+                object obj = ResourceManager.GetObject("La_Garza", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Luna {
+            get {
+                object obj = ResourceManager.GetObject("La_Luna", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Maceta {
+            get {
+                object obj = ResourceManager.GetObject("La_Maceta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Mano {
+            get {
+                object obj = ResourceManager.GetObject("La_Mano", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Muerte {
+            get {
+                object obj = ResourceManager.GetObject("La_Muerte", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap La_Palma {
+            get {
+                object obj = ResourceManager.GetObject("La_Palma", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap La_Pera {
             get {
-                object obj = ResourceManager.GetObject("La Pera", resourceCulture);
+                object obj = ResourceManager.GetObject("La_Pera", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -225,7 +555,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap La_Rana {
             get {
-                object obj = ResourceManager.GetObject("La Rana", resourceCulture);
+                object obj = ResourceManager.GetObject("La_Rana", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -235,7 +565,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap La_Rosa {
             get {
-                object obj = ResourceManager.GetObject("La Rosa", resourceCulture);
+                object obj = ResourceManager.GetObject("La_Rosa", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -245,7 +575,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap La_Sandia {
             get {
-                object obj = ResourceManager.GetObject("La Sandia", resourceCulture);
+                object obj = ResourceManager.GetObject("La_Sandia", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -255,7 +585,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap La_Sirena {
             get {
-                object obj = ResourceManager.GetObject("La Sirena", resourceCulture);
+                object obj = ResourceManager.GetObject("La_Sirena", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -265,7 +595,7 @@ namespace JuegoLoteriaPOO.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Las_Jaras {
             get {
-                object obj = ResourceManager.GetObject("Las Jaras", resourceCulture);
+                object obj = ResourceManager.GetObject("Las_Jaras", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
