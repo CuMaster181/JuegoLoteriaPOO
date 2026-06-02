@@ -70,7 +70,7 @@
             bttnRandom.TabIndex = 2;
             bttnRandom.Text = "rnd";
             bttnRandom.UseVisualStyleBackColor = true;
-            bttnRandom.Click += button1_Click;
+            bttnRandom.Click += bttnRandom_Click;
             // 
             // bttnInicio
             // 
@@ -80,6 +80,7 @@
             bttnInicio.TabIndex = 3;
             bttnInicio.Text = "Inicio";
             bttnInicio.UseVisualStyleBackColor = true;
+            bttnInicio.Click += bttnInicio_Click;
             // 
             // FormCrearTabla
             // 

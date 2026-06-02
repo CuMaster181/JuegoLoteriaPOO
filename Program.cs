@@ -11,7 +11,7 @@ namespace JuegoLoteriaPOO
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormCrearTabla());
+            Application.Run(new FormPerfil());
         }
     }
 }

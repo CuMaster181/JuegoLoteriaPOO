@@ -12,10 +12,14 @@ namespace JuegoLoteriaPOO
 {
     public partial class FormCrearTabla : Form
     {
+        private GeneradorTablas generador;
+        private TablaJugador tablaJugador;
         private Carta cartaSeleccionada;
         public FormCrearTabla()
         {
             InitializeComponent();
+            generador = new GeneradorTablas();
+            tablaJugador = new TablaJugador();
         }
 
         private void FormCrearTabla_Load(object sender, EventArgs e)
@@ -106,7 +110,7 @@ namespace JuegoLoteriaPOO
             }
         }
 
-        private void Carta_MouseDown(object sender,MouseEventArgs e)
+        private void Carta_MouseDown(object sender, MouseEventArgs e)
         {
             PictureBox pbCarta = (PictureBox)sender;
 
@@ -115,10 +119,74 @@ namespace JuegoLoteriaPOO
             pbCarta.DoDragDrop(carta, DragDropEffects.Move);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private bool CartaYaEstaEnTabla(int idCarta)
         {
+            foreach (Control control in tlpTabla.Controls)
+            {
+                PictureBox pb = control as PictureBox;
 
+                if (pb != null && pb.Tag != null)
+                {
+                    Carta carta = (Carta)pb.Tag;
+
+                    if (carta.Id == idCarta)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
+        private void LimpiarTabla()
+        {
+            foreach (Control control in tlpTabla.Controls)
+            {
+                PictureBox pb = control as PictureBox;
+
+                if (pb != null)
+                {
+                    pb.Image = null;
+                    pb.Tag = null;
+                }
+            }
+        }
+
+        private void bttnRandom_Click(object sender, EventArgs e)
+        {
+            LimpiarTabla();
+
+            List<Carta> cartas =
+                generador.GenerarCartasAleatorias(25);
+
+            int indice = 0;
+
+            foreach (Control control in tlpTabla.Controls)
+            {
+                PictureBox pb = control as PictureBox;
+
+                Carta carta = cartas[indice];
+
+                pb.Image = carta.RutaImagen;
+
+                pb.Tag = carta;
+
+                indice++;
+            }
+        }
+
+        private void bttnInicio_Click(object sender, EventArgs e)
+        {
+            if (!tablaJugador.EstaCompleta())
+            {
+                MessageBox.Show(
+                    "Debes completar las 25 cartas.");
+                return;
+            }
+
+            MessageBox.Show(
+                "Tabla guardada correctamente.");
+        }
     }
 }

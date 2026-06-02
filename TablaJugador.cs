@@ -28,24 +28,17 @@ namespace JuegoLoteriaPOO
             Casillas[fila, columna] = new CasillaTabla(carta);
         }
 
-        private bool CartaYaEstaEnTabla(int idCarta)
+        public bool EstaCompleta()
         {
-            foreach (Control control in tlpTabla.Controls)
+            foreach (CasillaTabla casilla in Casillas)
             {
-                PictureBox pb = control as PictureBox;
-
-                if (pb != null && pb.Tag != null)
+                if (casilla == null)
                 {
-                    Carta carta = (Carta)pb.Tag;
-
-                    if (carta.Id == idCarta)
-                    {
-                        return true;
-                    }
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
     }
 }
