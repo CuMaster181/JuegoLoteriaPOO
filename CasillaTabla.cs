@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JuegoLoteriaPOO
 {
-    internal class CasillaTabla
+    public class CasillaTabla
     {
         public Carta Carta { get; set; }
 

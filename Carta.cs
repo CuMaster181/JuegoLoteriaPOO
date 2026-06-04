@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace JuegoLoteriaPOO
 {
-    internal class Carta
+    public class Carta
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

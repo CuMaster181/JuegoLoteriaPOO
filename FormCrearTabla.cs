@@ -14,8 +14,8 @@ namespace JuegoLoteriaPOO
     {
         private GeneradorTablas generador;
         private TablaJugador tablaJugador;
-        private Carta cartaSeleccionada;
-        public FormCrearTabla()
+        private Carta? cartaSeleccionada;
+        public FormCrearTabla(Jugador jugador)
         {
             InitializeComponent();
             generador = new GeneradorTablas();
@@ -47,8 +47,7 @@ namespace JuegoLoteriaPOO
                 return;
             }
 
-            Carta carta =
-                (Carta)e.Data.GetData(typeof(Carta));
+            Carta carta = (Carta)e.Data.GetData(typeof(Carta));
 
             pbCasilla.Image = carta.RutaImagen;
 

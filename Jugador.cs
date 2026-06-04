@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace JuegoLoteriaPOO
 {
-    internal class Jugador
+    public class Jugador
     {
         public string Nombre { get; set; }
 
         public int Puntaje { get; set; }
 
-        public TablaJugador Tabla { get; set; }
+        public TablaJugador? Tabla { get; set; }
+        public bool EsHost { get; set; }
 
         public Jugador(string nombre)
         {
