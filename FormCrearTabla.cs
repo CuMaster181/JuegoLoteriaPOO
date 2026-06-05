@@ -12,6 +12,7 @@ namespace JuegoLoteriaPOO
 {
     public partial class FormCrearTabla : Form
     {
+        private Jugador jugador;
         private GeneradorTablas generador;
         private TablaJugador tablaJugador;
         private Carta? cartaSeleccionada;
@@ -20,6 +21,7 @@ namespace JuegoLoteriaPOO
             InitializeComponent();
             generador = new GeneradorTablas();
             tablaJugador = new TablaJugador();
+            this.jugador = jugador;
         }
 
         private void FormCrearTabla_Load(object sender, EventArgs e)
@@ -49,9 +51,25 @@ namespace JuegoLoteriaPOO
 
             Carta carta = (Carta)e.Data.GetData(typeof(Carta));
 
+            if (CartaYaExiste(carta.Id))
+            {
+                MessageBox.Show("Esa carta ya está en la tabla.");
+                return;
+            }
+
             pbCasilla.Image = carta.RutaImagen;
 
+            pbCasilla.SizeMode = PictureBoxSizeMode.StretchImage;
+
             pbCasilla.Tag = carta;
+
+            int indice = tlpTabla.Controls.GetChildIndex(pbCasilla);
+
+            int fila = indice / 5;
+
+            int columna = indice % 5;
+
+            tablaJugador.AsignarCasilla(fila, columna, carta);
         }
 
         private void CrearCasillasTabla()
@@ -62,23 +80,21 @@ namespace JuegoLoteriaPOO
             {
                 for (int columna = 0; columna < 5; columna++)
                 {
-                    PictureBox pbCasilla = new PictureBox();
+                    PictureBox pb = new PictureBox();
 
-                    pbCasilla.Dock = DockStyle.Fill;
+                    pb.Dock = DockStyle.Fill;
+                    pb.Width = 90;
+                    pb.Height = 130;
+                    pb.Margin = new Padding(5);
+                    pb.BorderStyle = BorderStyle.FixedSingle;
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pb.AllowDrop = true;
 
-                    pbCasilla.BorderStyle = BorderStyle.FixedSingle;
+                    pb.DragEnter += Casilla_DragEnter;
+                    pb.DragDrop += Casilla_DragDrop;
+                    pb.MouseDoubleClick += Casilla_MouseDoubleClick;
 
-                    pbCasilla.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    pbCasilla.AllowDrop = true;
-
-                    pbCasilla.BackColor = Color.White;
-
-                    pbCasilla.DragEnter += Casilla_DragEnter;
-
-                    pbCasilla.DragDrop += Casilla_DragDrop;
-
-                    tlpTabla.Controls.Add(pbCasilla, columna, fila);
+                    tlpTabla.Controls.Add(pb, columna, fila);
                 }
             }
         }
@@ -92,19 +108,13 @@ namespace JuegoLoteriaPOO
                 PictureBox pbCarta = new PictureBox();
 
                 pbCarta.Width = 90;
-
                 pbCarta.Height = 130;
-
-                pbCarta.SizeMode = PictureBoxSizeMode.Zoom;
-
+                pbCarta.Margin = new Padding(5);
+                pbCarta.SizeMode = PictureBoxSizeMode.StretchImage;
                 pbCarta.BorderStyle = BorderStyle.FixedSingle;
-
                 pbCarta.Image = carta.RutaImagen;
-
                 pbCarta.Tag = carta;
-
                 pbCarta.MouseDown += Carta_MouseDown;
-
                 flpCartasDisponibles.Controls.Add(pbCarta);
             }
         }
@@ -118,20 +128,33 @@ namespace JuegoLoteriaPOO
             pbCarta.DoDragDrop(carta, DragDropEffects.Move);
         }
 
-        private bool CartaYaEstaEnTabla(int idCarta)
+        private void Casilla_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+
+            if (pb.Tag is Carta)
+            {
+                int indice = tlpTabla.Controls.GetChildIndex(pb);
+
+                int fila = indice / 5;
+
+                int columna = indice % 5;
+
+                tablaJugador.Casillas[fila, columna] = null;
+
+                pb.Image = null;
+
+                pb.Tag = null;
+            }
+        }
+
+        private bool CartaYaExiste(int idCarta)
         {
             foreach (Control control in tlpTabla.Controls)
             {
-                PictureBox pb = control as PictureBox;
-
-                if (pb != null && pb.Tag != null)
+                if (control is PictureBox pb && pb.Tag is Carta carta && carta.Id == idCarta)
                 {
-                    Carta carta = (Carta)pb.Tag;
-
-                    if (carta.Id == idCarta)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
@@ -154,24 +177,36 @@ namespace JuegoLoteriaPOO
 
         private void bttnRandom_Click(object sender, EventArgs e)
         {
-            LimpiarTabla();
+            tablaJugador = new TablaJugador();
 
-            List<Carta> cartas =
-                generador.GenerarCartasAleatorias(25);
+            List<Carta> cartasAleatorias = generador.GenerarCartasAleatorias(25);
 
-            int indice = 0;
+            int indiceCarta = 0;
 
             foreach (Control control in tlpTabla.Controls)
             {
-                PictureBox pb = control as PictureBox;
+                if (control is PictureBox pb)
+                {
+                    Carta carta = cartasAleatorias[indiceCarta];
 
-                Carta carta = cartas[indice];
+                    pb.Image = carta.RutaImagen;
 
-                pb.Image = carta.RutaImagen;
+                    pb.SizeMode =
+                        PictureBoxSizeMode.StretchImage;
 
-                pb.Tag = carta;
+                    pb.Tag = carta;
 
-                indice++;
+                    int indice =
+                        tlpTabla.Controls.GetChildIndex(pb);
+
+                    int fila = indice / 5;
+
+                    int columna = indice % 5;
+
+                    tablaJugador.AsignarCasilla(fila, columna, carta);
+
+                    indiceCarta++;
+                }
             }
         }
 
@@ -179,13 +214,18 @@ namespace JuegoLoteriaPOO
         {
             if (!tablaJugador.EstaCompleta())
             {
-                MessageBox.Show(
-                    "Debes completar las 25 cartas.");
+                MessageBox.Show($"Faltan {25 - tablaJugador.ContarCartas()} cartas para completar la tabla.");
+
                 return;
             }
 
-            MessageBox.Show(
-                "Tabla guardada correctamente.");
+            jugador.Tabla = tablaJugador;
+
+            FormPartida frm = new FormPartida(jugador);
+
+            frm.Show();
+
+            this.Hide();
         }
     }
 }

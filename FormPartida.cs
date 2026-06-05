@@ -3,7 +3,7 @@ namespace JuegoLoteriaPOO
     public partial class FormPartida : Form
     {
         private GestorPartida gestor;
-        public FormPartida()
+        public FormPartida(Jugador jugador)
         {
             InitializeComponent();
             gestor = new GestorPartida();

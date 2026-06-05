@@ -28,6 +28,26 @@ namespace JuegoLoteriaPOO
             Casillas[fila, columna] = new CasillaTabla(carta);
         }
 
+        public void LimpiarCasilla(int fila, int columna)
+        {
+            Casillas[fila, columna] = null;
+        }
+
+        public int ContarCartas()
+        {
+            int total = 0;
+
+            foreach (CasillaTabla casilla in Casillas)
+            {
+                if (casilla != null)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
         public bool EstaCompleta()
         {
             foreach (CasillaTabla casilla in Casillas)

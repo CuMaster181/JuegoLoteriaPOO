@@ -51,7 +51,7 @@
             tlpTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             tlpTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             tlpTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tlpTabla.Location = new Point(316, 22);
+            tlpTabla.Location = new Point(316, 12);
             tlpTabla.Name = "tlpTabla";
             tlpTabla.RowCount = 5;
             tlpTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
@@ -59,7 +59,7 @@
             tlpTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tlpTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tlpTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tlpTabla.Size = new Size(316, 398);
+            tlpTabla.Size = new Size(316, 426);
             tlpTabla.TabIndex = 1;
             // 
             // bttnRandom
