@@ -118,6 +118,99 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ElAlacran" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElAlacran.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElApache" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElApache.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElArbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElArbol.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElArpa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElArpa.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElBandolon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElBandolon.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElBarril" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElBarril.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElBorracho" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElBorracho.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElCamaron" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElCamarron.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElCantarito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElCantarito.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElCatrin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElCatrin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElCazo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElCazo.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElCorazon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElCorazon.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElCotorro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElCotorro.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElDiablito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElDiablito.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElGallo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElGallo.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElGorrito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElGorrito.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElMelon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElMelon.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElMundo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElMundo.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElMusico" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElMusico.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElNegrito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElNegrito.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElNopal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElNopal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElPajaro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElPajaro.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElParaguas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElParaguas.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElPescado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElPescado.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElPino" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElPino.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElSol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElSol.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElSoldado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElSoldado.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElTambor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElTambor.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElValiente" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElValiente.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElVenado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElVenado.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ElVioloncello" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElVioloncello.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="El_Alacran" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\El_Alacran.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -210,6 +303,78 @@
   </data>
   <data name="El_Violoncello" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\El_Violoncello.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ficha" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ficha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LaAraña" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaAraña.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaBandera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaBandera.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaBota" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaBota.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaBotella" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaBotella.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaCalavera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaCalavera.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaCampana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaCampana.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaChalupa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaChalupa.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaCorona" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaCorona.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaDama" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaDama.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaEscalera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaEscalera.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaEstrella" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaEstrella.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaGarza" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaGarza.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaLuna" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaLuna.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaMaceta" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaMaceta.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaMano" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaMano.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaMuerte" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaMuerte.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaPalma" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaPalma.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaPera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaPera.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaRana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaRana.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaRosa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaRosa.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaSandia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaSandia.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LaSirena" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LaSirena.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LasJaras" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LasJaras.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Las_Jaras" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Las_Jaras.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

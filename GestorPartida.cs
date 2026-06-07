@@ -8,33 +8,45 @@ namespace JuegoLoteriaPOO
 {
     internal class GestorPartida
     {
-        private readonly Partida partida;
-        private readonly GeneradorCartas generador;
+        private Queue<Carta> mazo;
+        private TipoVictoria tipoVictoria { get; set; }
+
+        public List<Carta> Historial { get; } = new();
+        public Carta CartaActual { get; private set; }
+
+        public bool Pausado { get; private set; }
 
         public GestorPartida()
         {
-            partida = new Partida();
-            generador = new GeneradorCartas();
+            InicializarMazo();
+                tipoVictoria = TipoVictoria.LineaHorizontal;
         }
 
         public Carta SiguienteCarta()
         {
-            Carta carta = generador.ObtenerCartaAleatoria();
+            if (mazo.Count == 0)
+                return null;
 
-            if (carta != null)
-                partida.CantarCarta(carta);
-
-            return carta;
+            CartaActual = mazo.Dequeue();
+            Historial.Add(CartaActual);
+            return CartaActual;
         }
 
-        public bool YaSalio(int idCarta)
+        public void Pausar()
         {
-            return partida.CartaYaSalio(idCarta);
+            Pausado = true;
         }
 
-        public Carta CartaActual
+        public void Reanudar()
         {
-            get { return partida.CartaActual; }
+            Pausado = false;
+        }
+
+        private void InicializarMazo()
+        {
+            Random rnd = new Random();
+
+            mazo = new Queue<Carta>(Carta.cartas.Values.OrderBy(x => rnd.Next()));
         }
     }
 }
