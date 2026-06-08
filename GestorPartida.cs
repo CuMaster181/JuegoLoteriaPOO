@@ -9,17 +9,16 @@ namespace JuegoLoteriaPOO
     internal class GestorPartida
     {
         private Queue<Carta> mazo;
-        private TipoVictoria tipoVictoria { get; set; }
-
         public List<Carta> Historial { get; } = new();
         public Carta CartaActual { get; private set; }
 
         public bool Pausado { get; private set; }
+        private TipoVictoria tipoVictoria;
+        public TipoVictoria TipoVictoriaActual {get { return tipoVictoria; }}
 
         public GestorPartida()
         {
             InicializarMazo();
-                tipoVictoria = TipoVictoria.LineaHorizontal;
         }
 
         public Carta SiguienteCarta()

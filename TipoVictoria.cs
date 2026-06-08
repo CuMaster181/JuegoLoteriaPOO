@@ -8,7 +8,15 @@ namespace JuegoLoteriaPOO
 {
     internal enum TipoVictoria
     {
-        LineaHorizontal,
+        Horizontal,
+        Vertical,
+        DiagonalPrincipal,
+        DiagonalSecundaria,
+        Cruzita,
+        Pollita,
+        T,
+        L,
+        J,
         TablaCompleta
     }
 }

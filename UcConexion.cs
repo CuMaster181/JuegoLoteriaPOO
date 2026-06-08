@@ -13,13 +13,15 @@ namespace JuegoLoteriaPOO
     public partial class UcConexion : UserControl
     {
         private Jugador jugador;
+        private TipoPartida tipoPartida;
 
-        public event Action<Jugador, Conexion>? ConexionCompletada;
+        public event Action<Jugador, Conexion, TipoPartida>? ConexionCompletada;
 
-        public UcConexion(Jugador jugador)
+        public UcConexion(Jugador jugador, TipoPartida tipoPartida)
         {
             InitializeComponent();
             this.jugador = jugador;
+            this.tipoPartida = tipoPartida;
 
             txtIP.Text = "127.0.0.1";
             txtPuerto.Text = "5000";
@@ -50,7 +52,8 @@ namespace JuegoLoteriaPOO
 
             ConexionCompletada?.Invoke(
                 jugador,
-                conexion);
+                conexion,
+                tipoPartida);
         }
 
         private void bttncancelar_Click(object sender, EventArgs e)

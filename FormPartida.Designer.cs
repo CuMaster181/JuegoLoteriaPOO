@@ -34,15 +34,21 @@
             bttnPausa = new Button();
             fileSystemWatcher1 = new FileSystemWatcher();
             label1 = new Label();
-            Historial = new ListBox();
             timerCartas = new System.Windows.Forms.Timer(components);
             cbVelocidad = new ComboBox();
             tlpTablaPartida = new TableLayoutPanel();
             pbFicha = new PictureBox();
             ntnLoteria = new Button();
+            lblContador = new Label();
+            flpHistorial = new FlowLayoutPanel();
+            gbChat = new GroupBox();
+            btnEnviar = new Button();
+            txtMensaje = new TextBox();
+            lstChat = new ListBox();
             ((System.ComponentModel.ISupportInitialize)pbCartaActual).BeginInit();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbFicha).BeginInit();
+            gbChat.SuspendLayout();
             SuspendLayout();
             // 
             // lblNombreCarta
@@ -87,15 +93,6 @@
             label1.TabIndex = 4;
             label1.Text = "Historial de Cartas";
             // 
-            // Historial
-            // 
-            Historial.FormattingEnabled = true;
-            Historial.ItemHeight = 15;
-            Historial.Location = new Point(223, 27);
-            Historial.Name = "Historial";
-            Historial.Size = new Size(274, 109);
-            Historial.TabIndex = 5;
-            // 
             // timerCartas
             // 
             timerCartas.Interval = 3000;
@@ -132,7 +129,7 @@
             // pbFicha
             // 
             pbFicha.Image = Properties.Resources.Ficha;
-            pbFicha.Location = new Point(426, 365);
+            pbFicha.Location = new Point(411, 365);
             pbFicha.Name = "pbFicha";
             pbFicha.Size = new Size(100, 73);
             pbFicha.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -142,7 +139,7 @@
             // 
             // ntnLoteria
             // 
-            ntnLoteria.Location = new Point(566, 379);
+            ntnLoteria.Location = new Point(570, 383);
             ntnLoteria.Name = "ntnLoteria";
             ntnLoteria.Size = new Size(164, 59);
             ntnLoteria.TabIndex = 9;
@@ -150,16 +147,76 @@
             ntnLoteria.UseVisualStyleBackColor = true;
             ntnLoteria.Click += ntnLoteria_Click;
             // 
+            // lblContador
+            // 
+            lblContador.AutoSize = true;
+            lblContador.Location = new Point(459, 9);
+            lblContador.Name = "lblContador";
+            lblContador.Size = new Size(30, 15);
+            lblContador.TabIndex = 10;
+            lblContador.Text = "0/54";
+            // 
+            // flpHistorial
+            // 
+            flpHistorial.AutoScroll = true;
+            flpHistorial.FlowDirection = FlowDirection.BottomUp;
+            flpHistorial.Location = new Point(223, 27);
+            flpHistorial.Name = "flpHistorial";
+            flpHistorial.Size = new Size(266, 100);
+            flpHistorial.TabIndex = 11;
+            // 
+            // gbChat
+            // 
+            gbChat.Controls.Add(btnEnviar);
+            gbChat.Controls.Add(txtMensaje);
+            gbChat.Controls.Add(lstChat);
+            gbChat.Location = new Point(532, 27);
+            gbChat.Name = "gbChat";
+            gbChat.Size = new Size(250, 350);
+            gbChat.TabIndex = 12;
+            gbChat.TabStop = false;
+            gbChat.Text = "Chat";
+            // 
+            // btnEnviar
+            // 
+            btnEnviar.Location = new Point(190, 314);
+            btnEnviar.Name = "btnEnviar";
+            btnEnviar.Size = new Size(49, 23);
+            btnEnviar.TabIndex = 2;
+            btnEnviar.Text = "enviar";
+            btnEnviar.UseVisualStyleBackColor = true;
+            btnEnviar.Click += btnEnviar_Click;
+            // 
+            // txtMensaje
+            // 
+            txtMensaje.Location = new Point(6, 314);
+            txtMensaje.Name = "txtMensaje";
+            txtMensaje.Size = new Size(178, 23);
+            txtMensaje.TabIndex = 1;
+            // 
+            // lstChat
+            // 
+            lstChat.Dock = DockStyle.Top;
+            lstChat.FormattingEnabled = true;
+            lstChat.ItemHeight = 15;
+            lstChat.Location = new Point(3, 19);
+            lstChat.MaximumSize = new Size(0, 300);
+            lstChat.Name = "lstChat";
+            lstChat.Size = new Size(244, 289);
+            lstChat.TabIndex = 0;
+            // 
             // FormPartida
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(gbChat);
+            Controls.Add(flpHistorial);
+            Controls.Add(lblContador);
             Controls.Add(ntnLoteria);
             Controls.Add(pbFicha);
             Controls.Add(tlpTablaPartida);
             Controls.Add(cbVelocidad);
-            Controls.Add(Historial);
             Controls.Add(label1);
             Controls.Add(bttnPausa);
             Controls.Add(pbCartaActual);
@@ -170,6 +227,8 @@
             ((System.ComponentModel.ISupportInitialize)pbCartaActual).EndInit();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbFicha).EndInit();
+            gbChat.ResumeLayout(false);
+            gbChat.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -181,11 +240,16 @@
         private Button bttnPausa;
         private FileSystemWatcher fileSystemWatcher1;
         private Label label1;
-        private ListBox Historial;
         private System.Windows.Forms.Timer timerCartas;
         private ComboBox cbVelocidad;
         private TableLayoutPanel tlpTablaPartida;
         private PictureBox pbFicha;
         private Button ntnLoteria;
+        private Label lblContador;
+        private FlowLayoutPanel flpHistorial;
+        private GroupBox gbChat;
+        private ListBox lstChat;
+        private Button btnEnviar;
+        private TextBox txtMensaje;
     }
 }

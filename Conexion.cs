@@ -9,7 +9,6 @@ namespace JuegoLoteriaPOO
     public class Conexion
     {
         public string IP { get; set; }
-
         public int Puerto { get; set; }
     }
 }
