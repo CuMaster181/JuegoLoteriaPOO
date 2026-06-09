@@ -31,6 +31,8 @@
             pnlPrincipal = new Panel();
             btnContinuar = new Button();
             dgvRanking = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            puntos = new DataGridViewTextBoxColumn();
             lblGanador = new Label();
             pbTrofeo = new PictureBox();
             pnlPrincipal.SuspendLayout();
@@ -66,8 +68,8 @@
             dgvRanking.AllowUserToAddRows = false;
             dgvRanking.AllowUserToDeleteRows = false;
             dgvRanking.AllowUserToResizeColumns = false;
-            dgvRanking.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRanking.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRanking.Columns.AddRange(new DataGridViewColumn[] { Column1, puntos });
             dgvRanking.Location = new Point(20, 134);
             dgvRanking.MultiSelect = false;
             dgvRanking.Name = "dgvRanking";
@@ -76,6 +78,20 @@
             dgvRanking.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRanking.Size = new Size(291, 314);
             dgvRanking.TabIndex = 2;
+            // 
+            // Column1
+            // 
+            Column1.HeaderText = "Column1";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            Column1.Width = 144;
+            // 
+            // puntos
+            // 
+            puntos.HeaderText = "Column2";
+            puntos.Name = "puntos";
+            puntos.ReadOnly = true;
+            puntos.Width = 144;
             // 
             // lblGanador
             // 
@@ -117,5 +133,7 @@
         private Label lblGanador;
         private DataGridView dgvRanking;
         private Button btnContinuar;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn puntos;
     }
 }

@@ -37,8 +37,15 @@ namespace JuegoLoteriaPOO
         {
             CargarTabla();
 
-            if (tipoPartida ==
-        TipoPartida.Multijugador)
+            // Mostrar el panel de ganador oculto inicialmente
+            pnlGanador.Visible = false;
+
+            // Mostrar el chat solo en modo multijugador
+            bool esMultijugador = tipoPartida == TipoPartida.Multijugador;
+            gbChat.Visible = esMultijugador;
+            gbChat.Enabled = esMultijugador;
+
+            if (esMultijugador)
             {
                 try
                 {
@@ -67,20 +74,42 @@ namespace JuegoLoteriaPOO
                 }
             }
 
-
             timerCartas.Start();
         }
 
         private void ReproducirAudio(Carta carta)
         {
+            if (carta == null || carta.audio == null)
+            {
+                return;
+            }
+
             try
             {
-                SoundPlayer sonido = new SoundPlayer(carta.audio);
+                // Asegurar que el stream se lea desde el inicio
+                if (carta.audio.CanSeek)
+                {
+                    carta.audio.Position = 0;
+                }
+
+                SoundPlayer sonido = new SoundPlayer
+                {
+                    Stream = carta.audio
+                };
+
                 sonido.Play();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                // Detalle técnico para depuración
+                System.Diagnostics.Debug.WriteLine($"Error al reproducir audio de '{carta?.Nombre}': {ex}");
+
+                // Mensaje amistoso y en español para el usuario
+                MessageBox.Show(
+                    $"No se pudo reproducir el audio de la carta \"{carta?.Nombre}\".",
+                    "Error de audio",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
 
@@ -301,11 +330,19 @@ namespace JuegoLoteriaPOO
         {
             UcGanador ganador = new UcGanador(nombreGanador);
 
-            ganador.Dock = DockStyle.Fill;
+            pnlGanador.Controls.Clear();
+            pnlGanador.Visible = true;
+            pnlGanador.Enabled = true; // habilita el panel para que los controles hijos reciban eventos
+            pnlGanador.BringToFront();
+            pnlGanador.Dock = DockStyle.Fill;
+            ganador.Location = new Point(
+               (pnlGanador.Width - ganador.Width) / 2,
+               (pnlGanador.Height - ganador.Height) / 2
+           );
 
             ganador.NuevaPartidaSolicitada += ReiniciarDesdeGanador;
 
-            Controls.Add(ganador);
+            pnlGanador.Controls.Add(ganador);
 
             ganador.BringToFront();
         }
@@ -400,48 +437,55 @@ namespace JuegoLoteriaPOO
         {
             timerCartas.Stop();
 
+            // nuevo gestor (nuevo mazo)
             gestor = new GestorPartida();
 
+            // limpiar historial visual
             flpHistorial.Controls.Clear();
-
             lblContador.Text = "0/54";
-
             pbCartaActual.Image = null;
-
             lblNombreCarta.Text = "";
 
-            foreach (CasillaTabla casilla in jugador.Tabla.Casillas)
+            // generar una tabla nueva para el jugador (25 cartas aleatorias)
+            GeneradorTablas generador = new GeneradorTablas();
+            List<Carta> cartas = generador.GenerarCartasAleatorias(TablaJugador.Filas * TablaJugador.Columnas);
+            TablaJugador nuevaTabla = new TablaJugador();
+            int idx = 0;
+            for (int fila = 0; fila < TablaJugador.Filas; fila++)
             {
-                if (casilla != null)
+                for (int col = 0; col < TablaJugador.Columnas; col++)
                 {
-                    casilla.Marcada = false;
+                    nuevaTabla.AsignarCasilla(fila, col, cartas[idx++]);
                 }
             }
+            jugador.Tabla = nuevaTabla;
 
-            foreach (var item in casillasVisuales)
-            {
-                item.Value.Image =
-                    item.Key.Carta.RutaImagen;
-            }
+            // recargar la UI de la tabla y el diccionario casillasVisuales
+            CargarTabla();
 
             timerCartas.Start();
         }
 
         private void ReiniciarDesdeGanador()
         {
-            foreach (Control c in Controls.OfType<UcGanador>().ToList())
+            // eliminar y liberar los UcGanador contenidos en pnlGanador
+            foreach (Control c in pnlGanador.Controls.OfType<UcGanador>().ToList())
             {
-                Controls.Remove(c);
+                pnlGanador.Controls.Remove(c);
                 c.Dispose();
             }
 
+            // ocultar y deshabilitar el panel para restaurar el estado original
+            pnlGanador.Visible = false;
+            pnlGanador.Enabled = false;
+
             if (tipoPartida == TipoPartida.Multijugador)
             {
-                red.Enviar("REINICIAR");
+                ReiniciarPartida();
             }
             else
             {
-                ReiniciarPartida();
+                red.Enviar("REINICIAR");
             }
         }
     }

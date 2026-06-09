@@ -26,7 +26,7 @@ namespace JuegoLoteriaPOO
 
                 Ranking.Add(jugador);
             }
-
+            
             jugador.Puntos++;
         }
 

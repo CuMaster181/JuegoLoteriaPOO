@@ -18,7 +18,6 @@ namespace JuegoLoteriaPOO
         {
             InitializeComponent();
             lblGanador.Text = $"{ganador} ganó la partida";
-
             ActualizarRanking();
         }
 

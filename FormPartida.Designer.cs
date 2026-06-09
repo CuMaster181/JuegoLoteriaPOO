@@ -41,6 +41,7 @@
             ntnLoteria = new Button();
             lblContador = new Label();
             flpHistorial = new FlowLayoutPanel();
+            pnlGanador = new Panel();
             gbChat = new GroupBox();
             btnEnviar = new Button();
             txtMensaje = new TextBox();
@@ -165,6 +166,14 @@
             flpHistorial.Size = new Size(266, 100);
             flpHistorial.TabIndex = 11;
             // 
+            // pnlGanador
+            // 
+            pnlGanador.Enabled = false;
+            pnlGanador.Location = new Point(230, 9);
+            pnlGanador.Name = "pnlGanador";
+            pnlGanador.Size = new Size(334, 489);
+            pnlGanador.TabIndex = 0;
+            // 
             // gbChat
             // 
             gbChat.Controls.Add(btnEnviar);
@@ -209,7 +218,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 504);
+            Controls.Add(pnlGanador);
             Controls.Add(gbChat);
             Controls.Add(flpHistorial);
             Controls.Add(lblContador);
@@ -251,5 +261,6 @@
         private ListBox lstChat;
         private Button btnEnviar;
         private TextBox txtMensaje;
+        private Panel pnlGanador;
     }
 }
