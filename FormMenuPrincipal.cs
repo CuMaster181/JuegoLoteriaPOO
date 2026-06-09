@@ -13,6 +13,7 @@ namespace JuegoLoteriaPOO
     public partial class FormMenuPrincipal : Form
     {
         private TipoPartida tipoPartida;
+        private Conexion conexion;
         public FormMenuPrincipal()
         {
             InitializeComponent();
@@ -59,7 +60,7 @@ namespace JuegoLoteriaPOO
             if (tipo == TipoPartida.Solo)
             {
                 FormCrearTabla frm =
-                    new FormCrearTabla(jugador, tipo);
+                    new FormCrearTabla(jugador, tipoPartida, conexion);
 
                 frm.Show();
 
@@ -77,11 +78,12 @@ namespace JuegoLoteriaPOO
 
         private void ConexionCompletada(Jugador jugador, Conexion conexion, TipoPartida tipoPartida)
         {
-            FormCrearTabla frm = new FormCrearTabla(jugador, tipoPartida);
+            FormCrearTabla frm =
+        new FormCrearTabla(jugador, tipoPartida, conexion);
 
             frm.Show();
 
-            this.Hide();
+            Hide();
         }
 
         public void CerrarUC()

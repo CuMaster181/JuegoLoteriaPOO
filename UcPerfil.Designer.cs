@@ -69,7 +69,6 @@
             Controls.Add(bttnContinuar);
             Name = "UcPerfil";
             Size = new Size(334, 489);
-            Load += UsingControlPerfil_Load;
             ResumeLayout(false);
             PerformLayout();
         }

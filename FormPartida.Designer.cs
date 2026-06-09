@@ -75,7 +75,7 @@
             bttnPausa.Name = "bttnPausa";
             bttnPausa.Size = new Size(75, 23);
             bttnPausa.TabIndex = 2;
-            bttnPausa.Text = "Pausa";
+            bttnPausa.Text = "iniciar";
             bttnPausa.UseVisualStyleBackColor = true;
             bttnPausa.Click += bttnPausa_Click;
             // 
@@ -145,7 +145,7 @@
             ntnLoteria.TabIndex = 9;
             ntnLoteria.Text = "BUENAS!!!";
             ntnLoteria.UseVisualStyleBackColor = true;
-            ntnLoteria.Click += ntnLoteria_Click;
+            ntnLoteria.Click += btnLoteria_Click;
             // 
             // lblContador
             // 

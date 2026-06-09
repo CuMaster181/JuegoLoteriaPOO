@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace JuegoLoteriaPOO
 {
-    public class Conexion
+    internal class PuntajeJugador
     {
-        public string IP { get; set; }
-        public int Puerto { get; set; }
-        public bool EsHost { get; set; }
+        public string Nombre { get; set; }
+
+        public int Puntos { get; set; }
     }
 }

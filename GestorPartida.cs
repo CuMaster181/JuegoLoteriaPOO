@@ -47,5 +47,14 @@ namespace JuegoLoteriaPOO
 
             mazo = new Queue<Carta>(Carta.cartas.Values.OrderBy(x => rnd.Next()));
         }
+
+        public void Reiniciar()
+        {
+            Historial.Clear();
+
+            CartaActual = null;
+
+            InicializarMazo();
+        }
     }
 }

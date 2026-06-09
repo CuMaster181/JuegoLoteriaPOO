@@ -21,12 +21,6 @@ namespace JuegoLoteriaPOO
 
             this.tipoPartida = tipoPartida;
         }
-
-        private void UsingControlPerfil_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void bttnContinuar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))

@@ -16,14 +16,16 @@ namespace JuegoLoteriaPOO
         private GeneradorTablas generador;
         private TablaJugador tablaJugador;
         private Carta? cartaSeleccionada;
+        private Conexion conexion;
         private TipoPartida tipoPartida;
-        public FormCrearTabla(Jugador jugador, TipoPartida tipoPartida)
+        public FormCrearTabla(Jugador jugador, TipoPartida tipoPartida, Conexion conexion)
         {
             InitializeComponent();
             generador = new GeneradorTablas();
             tablaJugador = new TablaJugador();
             this.jugador = jugador;
             this.tipoPartida = tipoPartida;
+            this.conexion = conexion;
         }
 
         private void FormCrearTabla_Load(object sender, EventArgs e)
@@ -223,7 +225,7 @@ namespace JuegoLoteriaPOO
 
             jugador.Tabla = tablaJugador;
 
-            FormPartida frm = new FormPartida(jugador, tipoPartida);
+            FormPartida frm = new FormPartida(jugador, tipoPartida, conexion);
 
             frm.Show();
 

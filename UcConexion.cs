@@ -14,7 +14,6 @@ namespace JuegoLoteriaPOO
     {
         private Jugador jugador;
         private TipoPartida tipoPartida;
-
         public event Action<Jugador, Conexion, TipoPartida>? ConexionCompletada;
 
         public UcConexion(Jugador jugador, TipoPartida tipoPartida)
@@ -23,32 +22,20 @@ namespace JuegoLoteriaPOO
             this.jugador = jugador;
             this.tipoPartida = tipoPartida;
 
-            txtIP.Text = "127.0.0.1";
             txtPuerto.Text = "5000";
         }
 
         private void bttnConectar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtIP.Text))
-            {
-                MessageBox.Show("Ingresa una IP.");
-                return;
-            }
+            Conexion conexion =
+        new Conexion
+        {
+            IP = txtIP.Text.Trim(),
+            Puerto = int.Parse(
+                txtPuerto.Text),
 
-            if (!int.TryParse(
-                    txtPuerto.Text,
-                    out int puerto))
-            {
-                MessageBox.Show(
-                    "Puerto inválido.");
-                return;
-            }
-
-            Conexion conexion = new Conexion
-                {
-                    IP = txtIP.Text.Trim(),
-                    Puerto = puerto
-                };
+            EsHost = rbHost.Checked
+        };
 
             ConexionCompletada?.Invoke(
                 jugador,
