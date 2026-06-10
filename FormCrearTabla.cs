@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -73,7 +74,54 @@ namespace JuegoLoteriaPOO
 
             int columna = indice % 5;
 
+            if ((fila == 1 && columna == 1) || (fila == 3 && columna == 3))
+            {
+                // Corregido: TablaJugador almacena CasillaTabla, no Carta.
+                CasillaTabla casillaExistente1 = tablaJugador.Casillas[1, 1];
+                CasillaTabla casillaExistente2 = tablaJugador.Casillas[3, 3];
+
+                if (casillaExistente1 != null || casillaExistente2 != null)
+                {
+                    MessageBox.Show("La carta duplicada ya fue asignada.");
+
+                    return;
+                }
+            }
+
             tablaJugador.AsignarCasilla(fila, columna, carta);
+
+            if (fila == 1 && columna == 1)
+            {
+                DuplicarCarta(3, 3, carta);
+            }
+            else if (fila == 3 && columna == 3)
+            {
+                DuplicarCarta(1, 1, carta);
+            }
+        }
+
+        private void DuplicarCarta(int filaDestino, int columnaDestino, Carta carta)
+        {
+            foreach (Control control in tlpTabla.Controls)
+            {
+                if (tlpTabla.GetRow(control) == filaDestino &&
+                    tlpTabla.GetColumn(control) == columnaDestino)
+                {
+                    PictureBox pb =
+                        (PictureBox)control;
+
+                    pb.Image = carta.RutaImagen;
+
+                    pb.Tag = carta;
+
+                    tablaJugador.AsignarCasilla(
+                        filaDestino,
+                        columnaDestino,
+                        carta);
+
+                    break;
+                }
+            }
         }
 
         private void CrearCasillasTabla()
@@ -183,7 +231,8 @@ namespace JuegoLoteriaPOO
         {
             tablaJugador = new TablaJugador();
 
-            List<Carta> cartasAleatorias = generador.GenerarCartasAleatorias(25);
+            List<Carta> cartasAleatorias =
+                generador.GenerarCartasAleatorias(24);
 
             int indiceCarta = 0;
 
@@ -191,23 +240,31 @@ namespace JuegoLoteriaPOO
             {
                 if (control is PictureBox pb)
                 {
-                    Carta carta = cartasAleatorias[indiceCarta];
-
-                    pb.Image = carta.RutaImagen;
-
-                    pb.SizeMode =
-                        PictureBoxSizeMode.StretchImage;
-
-                    pb.Tag = carta;
-
-                    int indice =
-                        tlpTabla.Controls.GetChildIndex(pb);
+                    int indice = tlpTabla.Controls.GetChildIndex(pb);
 
                     int fila = indice / 5;
 
                     int columna = indice % 5;
 
+                    if (fila == 3 && columna == 3)
+                    {
+                        continue;
+                    }
+
+                    Carta carta = cartasAleatorias[indiceCarta];
+
+                    pb.Image = carta.RutaImagen;
+
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    pb.Tag = carta;
+
                     tablaJugador.AsignarCasilla(fila, columna, carta);
+
+                    if (fila == 1 && columna == 1)
+                    {
+                        DuplicarCarta(3, 3, carta);
+                    }
 
                     indiceCarta++;
                 }
@@ -230,6 +287,144 @@ namespace JuegoLoteriaPOO
             frm.Show();
 
             this.Hide();
+        }
+
+        private void btnGuardarTabla_Click(object sender, EventArgs e)
+        {
+            if (!tablaJugador.EstaCompleta())
+            {
+                MessageBox.Show(
+                    "Completa la tabla primero.");
+
+                return;
+            }
+
+            TablaGuardada tabla = new TablaGuardada();
+
+            tabla.NombreJugador = jugador.Nombre;
+
+            for (int fila = 0; fila < 5; fila++)
+            {
+                for (int columna = 0; columna < 5; columna++)
+                {
+                    tabla.Cartas.Add(
+                        tablaJugador
+                        .Casillas[fila, columna]
+                        .Carta.Id);
+                }
+            }
+
+            Directory.CreateDirectory(
+                "TablasGuardadas");
+
+            SaveFileDialog guardar =
+                new SaveFileDialog();
+
+            guardar.InitialDirectory =
+                Path.Combine(
+                    Application.StartupPath,
+                    "TablasGuardadas");
+
+            guardar.Filter =
+                "Tabla (*.json)|*.json";
+
+            guardar.FileName =
+                jugador.Nombre + "_Tabla";
+
+            if (guardar.ShowDialog()
+                != DialogResult.OK)
+            {
+                return;
+            }
+
+            string json =
+                JsonSerializer.Serialize(
+                    tabla,
+                    new JsonSerializerOptions
+                    {
+                        WriteIndented = true
+                    });
+
+            File.WriteAllText(
+                guardar.FileName,
+                json);
+
+            MessageBox.Show(
+                "Tabla guardada.");
+        }
+
+        private void btnCargarTabla_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog abrir =
+        new OpenFileDialog();
+
+            abrir.InitialDirectory =
+                Path.Combine(
+                    Application.StartupPath,
+                    "TablasGuardadas");
+
+            abrir.Filter =
+                "Tabla (*.json)|*.json";
+
+            if (abrir.ShowDialog()
+                != DialogResult.OK)
+            {
+                return;
+            }
+
+            string json =
+                File.ReadAllText(
+                    abrir.FileName);
+
+            TablaGuardada tabla = JsonSerializer.Deserialize<TablaGuardada>(json);
+
+            CargarTablaGuardada(tabla);
+        }
+
+        private void CargarTablaGuardada(TablaGuardada tabla)
+        {
+            tablaJugador =
+                new TablaJugador();
+
+            int indiceCarta = 0;
+
+            foreach (Control control in tlpTabla.Controls)
+            {
+                if (control is PictureBox pb)
+                {
+                    int indice =
+                        tlpTabla.Controls.GetChildIndex(pb);
+
+                    int fila =
+                        indice / 5;
+
+                    int columna =
+                        indice % 5;
+
+                    int idCarta =
+                        tabla.Cartas[indiceCarta];
+
+                    Carta carta =
+                        Carta.cartas[idCarta];
+
+                    pb.Image =
+                        carta.RutaImagen;
+
+                    pb.Tag =
+                        carta;
+
+                    tablaJugador
+                        .AsignarCasilla(
+                            fila,
+                            columna,
+                            carta);
+
+                    indiceCarta++;
+                }
+            }
+
+            MessageBox.Show(
+                "Tabla cargada.");
         }
     }
 }

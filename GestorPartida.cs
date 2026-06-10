@@ -11,7 +11,6 @@ namespace JuegoLoteriaPOO
         private Queue<Carta> mazo;
         public List<Carta> Historial { get; } = new();
         public Carta CartaActual { get; private set; }
-
         public bool Pausado { get; private set; }
         private TipoVictoria tipoVictoria;
         public TipoVictoria TipoVictoriaActual {get { return tipoVictoria; }}

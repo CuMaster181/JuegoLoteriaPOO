@@ -4,6 +4,7 @@ namespace JuegoLoteriaPOO
 {
     public partial class FormPartida : Form
     {
+        private bool fichaSeleccionada = false;
         private Dictionary<CasillaTabla, PictureBox> casillasVisuales = new Dictionary<CasillaTabla, PictureBox>();
         private VerificadorDeVictoria verificador;
         private GestorPartida gestor;
@@ -31,6 +32,7 @@ namespace JuegoLoteriaPOO
             timerCartas.Tick -= timerCartas_Tick;
             timerCartas.Tick += timerCartas_Tick;
             pbFicha.MouseDown += pbFicha_MouseDown;
+            pbFicha.Click += pbFicha_Click;
         }
 
         private async void FormPartida_Load(object sender, EventArgs e)
@@ -74,7 +76,10 @@ namespace JuegoLoteriaPOO
                 }
             }
 
-            timerCartas.Start();
+            // NO arrancar automáticamente: el jugador debe presionar el botón para empezar
+            timerCartas.Stop();
+            bttnPausa.Text = "Iniciar";
+            bttnPausa.Enabled = true;
         }
 
         private void ReproducirAudio(Carta carta)
@@ -158,9 +163,8 @@ namespace JuegoLoteriaPOO
 
             AgregarCartaHistorial(carta);
 
-            lblContador.Text =
-                $"{gestor.Historial.Count}/54";
-            gestor.Historial.Add(carta);
+            // No volver a añadir la carta al historial: GestorPartida.SiguienteCarta() ya lo hizo.
+            lblContador.Text = $"{gestor.Historial.Count}/54";
 
             if (tipoPartida == TipoPartida.Multijugador)
             {
@@ -172,14 +176,12 @@ namespace JuegoLoteriaPOO
         {
             if (InvokeRequired)
             {
-                Invoke(() =>
-                    ProcesarMensajeRed(mensaje));
+                Invoke(() => ProcesarMensajeRed(mensaje));
 
                 return;
             }
 
-            string[] partes =
-                mensaje.Split('|');
+            string[] partes = mensaje.Split('|');
 
             switch (partes[0])
             {
@@ -250,15 +252,21 @@ namespace JuegoLoteriaPOO
             PictureBox pb = (PictureBox)sender;
             CasillaTabla casilla = (CasillaTabla)pb.Tag;
             casilla.Marcada = true;
-            pb.Image = Properties.Resources.Ficha;
+            MostrarFicha(pb);
         }
 
         private void Casilla_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            PictureBox pb = (PictureBox)sender;
-            CasillaTabla casilla = (CasillaTabla)pb.Tag;
+            PictureBox pb =
+        (PictureBox)sender;
+
+            CasillaTabla casilla =
+                (CasillaTabla)pb.Tag;
+
             casilla.Marcada = false;
-            pb.Image = casilla.Carta.RutaImagen;
+
+            pb.Image =
+                casilla.Carta.RutaImagen;
         }
 
         private void CargarTabla()
@@ -292,6 +300,7 @@ namespace JuegoLoteriaPOO
                     pb.DragDrop += Casilla_DragDrop;
 
                     pb.MouseDoubleClick += Casilla_MouseDoubleClick;
+                    pb.Click += Casilla_Click;
 
                     tlpTablaPartida.Controls.Add(pb, columna, fila);
 
@@ -487,6 +496,48 @@ namespace JuegoLoteriaPOO
             {
                 red.Enviar("REINICIAR");
             }
+        }
+
+        private void pbFicha_Click(object sender, EventArgs e)
+        {
+            fichaSeleccionada = !fichaSeleccionada;
+
+            pbFicha.BorderStyle =
+                fichaSeleccionada
+                ? BorderStyle.Fixed3D
+                : BorderStyle.None;
+        }
+
+        private void Casilla_Click(object sender, EventArgs e)
+        {
+            if (!fichaSeleccionada)
+                return;
+
+            PictureBox pb = (PictureBox)sender;
+
+            CasillaTabla casilla = (CasillaTabla)pb.Tag;
+
+            casilla.Marcada = true;
+
+            MostrarFicha(pb);
+
+            fichaSeleccionada = false;
+
+            pbFicha.BorderStyle = BorderStyle.None;
+        }
+
+        private void MostrarFicha(PictureBox pb)
+        {
+            if (pb == null)
+                return;
+
+            if (pb.Tag is not CasillaTabla casillaTabla)
+                return;
+
+            pb.Image = Properties.Resources.Ficha;
+
+            casillaTabla.Marcada = true;
+
         }
     }
 }

@@ -32,6 +32,8 @@
             tlpTabla = new TableLayoutPanel();
             bttnRandom = new Button();
             bttnInicio = new Button();
+            btnCargarTabla = new Button();
+            btnGuardarTabla = new Button();
             SuspendLayout();
             // 
             // flpCartasDisponibles
@@ -74,19 +76,41 @@
             // 
             // bttnInicio
             // 
-            bttnInicio.Location = new Point(679, 397);
+            bttnInicio.Location = new Point(669, 397);
             bttnInicio.Name = "bttnInicio";
-            bttnInicio.Size = new Size(75, 23);
+            bttnInicio.Size = new Size(91, 23);
             bttnInicio.TabIndex = 3;
             bttnInicio.Text = "Inicio";
             bttnInicio.UseVisualStyleBackColor = true;
             bttnInicio.Click += bttnInicio_Click;
+            // 
+            // btnCargarTabla
+            // 
+            btnCargarTabla.Location = new Point(669, 357);
+            btnCargarTabla.Name = "btnCargarTabla";
+            btnCargarTabla.Size = new Size(91, 23);
+            btnCargarTabla.TabIndex = 4;
+            btnCargarTabla.Text = "Cargar tabla";
+            btnCargarTabla.UseVisualStyleBackColor = true;
+            btnCargarTabla.Click += btnCargarTabla_Click;
+            // 
+            // btnGuardarTabla
+            // 
+            btnGuardarTabla.Location = new Point(669, 318);
+            btnGuardarTabla.Name = "btnGuardarTabla";
+            btnGuardarTabla.Size = new Size(91, 23);
+            btnGuardarTabla.TabIndex = 5;
+            btnGuardarTabla.Text = "Guardar Tabla";
+            btnGuardarTabla.UseVisualStyleBackColor = true;
+            btnGuardarTabla.Click += btnGuardarTabla_Click;
             // 
             // FormCrearTabla
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnGuardarTabla);
+            Controls.Add(btnCargarTabla);
             Controls.Add(bttnInicio);
             Controls.Add(bttnRandom);
             Controls.Add(tlpTabla);
@@ -103,5 +127,7 @@
         private TableLayoutPanel tlpTabla;
         private Button bttnRandom;
         private Button bttnInicio;
+        private Button btnCargarTabla;
+        private Button btnGuardarTabla;
     }
 }

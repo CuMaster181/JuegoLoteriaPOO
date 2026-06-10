@@ -27,20 +27,14 @@ namespace JuegoLoteriaPOO
 
         private void bttnConectar_Click(object sender, EventArgs e)
         {
-            Conexion conexion =
-        new Conexion
-        {
-            IP = txtIP.Text.Trim(),
-            Puerto = int.Parse(
-                txtPuerto.Text),
+            Conexion conexion = new Conexion
+            {
+                IP = txtIP.Text.Trim(),
+                Puerto = int.Parse(txtPuerto.Text),
+                EsHost = rbHost.Checked
+            };
 
-            EsHost = rbHost.Checked
-        };
-
-            ConexionCompletada?.Invoke(
-                jugador,
-                conexion,
-                tipoPartida);
+            ConexionCompletada?.Invoke(jugador, conexion, tipoPartida);
         }
 
         private void bttncancelar_Click(object sender, EventArgs e)

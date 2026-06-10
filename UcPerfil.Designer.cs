@@ -31,6 +31,7 @@
             bttnContinuar = new Button();
             txtNombre = new TextBox();
             bttnCancelar = new Button();
+            lblUsuario = new Label();
             SuspendLayout();
             // 
             // bttnContinuar
@@ -60,10 +61,20 @@
             bttnCancelar.UseVisualStyleBackColor = true;
             bttnCancelar.Click += bttnCancelar_Click;
             // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(46, 127);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(155, 15);
+            lblUsuario.TabIndex = 3;
+            lblUsuario.Text = "Ingresa Nombre De Usuario:";
+            // 
             // UcPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(lblUsuario);
             Controls.Add(bttnCancelar);
             Controls.Add(txtNombre);
             Controls.Add(bttnContinuar);
@@ -78,5 +89,6 @@
         private Button bttnContinuar;
         private TextBox txtNombre;
         private Button bttnCancelar;
+        private Label lblUsuario;
     }
 }

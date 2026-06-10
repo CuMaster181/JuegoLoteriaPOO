@@ -8,7 +8,7 @@
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        ///  Clean up any resources being being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -124,7 +124,7 @@
             tlpTablaPartida.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tlpTablaPartida.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tlpTablaPartida.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tlpTablaPartida.Size = new Size(382, 292);
+            tlpTablaPartida.Size = new Size(382, 352);
             tlpTablaPartida.TabIndex = 7;
             // 
             // pbFicha
@@ -136,6 +136,7 @@
             pbFicha.SizeMode = PictureBoxSizeMode.StretchImage;
             pbFicha.TabIndex = 8;
             pbFicha.TabStop = false;
+            pbFicha.Click += pbFicha_Click;
             pbFicha.MouseDown += pbFicha_MouseDown;
             // 
             // ntnLoteria
@@ -169,13 +170,14 @@
             // pnlGanador
             // 
             pnlGanador.Enabled = false;
-            pnlGanador.Location = new Point(230, 9);
+            pnlGanador.Location = new Point(230, 12);
             pnlGanador.Name = "pnlGanador";
             pnlGanador.Size = new Size(334, 489);
             pnlGanador.TabIndex = 0;
             // 
             // gbChat
             // 
+            gbChat.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             gbChat.Controls.Add(btnEnviar);
             gbChat.Controls.Add(txtMensaje);
             gbChat.Controls.Add(lstChat);
@@ -188,6 +190,7 @@
             // 
             // btnEnviar
             // 
+            btnEnviar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnEnviar.Location = new Point(190, 314);
             btnEnviar.Name = "btnEnviar";
             btnEnviar.Size = new Size(49, 23);
@@ -198,6 +201,7 @@
             // 
             // txtMensaje
             // 
+            txtMensaje.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtMensaje.Location = new Point(6, 314);
             txtMensaje.Name = "txtMensaje";
             txtMensaje.Size = new Size(178, 23);
@@ -205,13 +209,12 @@
             // 
             // lstChat
             // 
-            lstChat.Dock = DockStyle.Top;
+            lstChat.Dock = DockStyle.Fill;
             lstChat.FormattingEnabled = true;
             lstChat.ItemHeight = 15;
             lstChat.Location = new Point(3, 19);
-            lstChat.MaximumSize = new Size(0, 300);
             lstChat.Name = "lstChat";
-            lstChat.Size = new Size(244, 289);
+            lstChat.Size = new Size(244, 328);
             lstChat.TabIndex = 0;
             // 
             // FormPartida
