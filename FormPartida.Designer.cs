@@ -35,7 +35,6 @@
             fileSystemWatcher1 = new FileSystemWatcher();
             label1 = new Label();
             timerCartas = new System.Windows.Forms.Timer(components);
-            cbVelocidad = new ComboBox();
             tlpTablaPartida = new TableLayoutPanel();
             pbFicha = new PictureBox();
             ntnLoteria = new Button();
@@ -46,6 +45,11 @@
             btnEnviar = new Button();
             txtMensaje = new TextBox();
             lstChat = new ListBox();
+            btnAumento = new Button();
+            btnResta = new Button();
+            btnSiguiente = new Button();
+            lblProximaCarta = new Label();
+            lblFormadeGanar = new Label();
             ((System.ComponentModel.ISupportInitialize)pbCartaActual).BeginInit();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbFicha).BeginInit();
@@ -63,6 +67,7 @@
             // 
             // pbCartaActual
             // 
+            pbCartaActual.Image = Properties.Resources.CartaPosterior;
             pbCartaActual.Location = new Point(12, 27);
             pbCartaActual.Name = "pbCartaActual";
             pbCartaActual.Size = new Size(80, 109);
@@ -72,7 +77,7 @@
             // 
             // bttnPausa
             // 
-            bttnPausa.Location = new Point(115, 75);
+            bttnPausa.Location = new Point(116, 104);
             bttnPausa.Name = "bttnPausa";
             bttnPausa.Size = new Size(75, 23);
             bttnPausa.TabIndex = 2;
@@ -98,15 +103,6 @@
             // 
             timerCartas.Interval = 3000;
             timerCartas.Tick += timerCartas_Tick;
-            // 
-            // cbVelocidad
-            // 
-            cbVelocidad.FormattingEnabled = true;
-            cbVelocidad.Location = new Point(96, 46);
-            cbVelocidad.Name = "cbVelocidad";
-            cbVelocidad.Size = new Size(121, 23);
-            cbVelocidad.TabIndex = 6;
-            cbVelocidad.SelectedIndexChanged += cbVelocidad_SelectedIndexChanged;
             // 
             // tlpTablaPartida
             // 
@@ -217,11 +213,65 @@
             lstChat.Size = new Size(244, 328);
             lstChat.TabIndex = 0;
             // 
+            // btnAumento
+            // 
+            btnAumento.Location = new Point(98, 57);
+            btnAumento.Name = "btnAumento";
+            btnAumento.Size = new Size(33, 23);
+            btnAumento.TabIndex = 13;
+            btnAumento.Text = "+";
+            btnAumento.UseVisualStyleBackColor = true;
+            btnAumento.Click += btnAumento_Click;
+            // 
+            // btnResta
+            // 
+            btnResta.Location = new Point(184, 57);
+            btnResta.Name = "btnResta";
+            btnResta.Size = new Size(33, 23);
+            btnResta.TabIndex = 14;
+            btnResta.Text = "-";
+            btnResta.UseVisualStyleBackColor = true;
+            btnResta.Click += btnResta_Click;
+            // 
+            // btnSiguiente
+            // 
+            btnSiguiente.Location = new Point(137, 57);
+            btnSiguiente.Name = "btnSiguiente";
+            btnSiguiente.Size = new Size(33, 23);
+            btnSiguiente.TabIndex = 15;
+            btnSiguiente.Text = "Sig.";
+            btnSiguiente.UseVisualStyleBackColor = true;
+            btnSiguiente.Click += btnSiguiente_Click;
+            // 
+            // lblProximaCarta
+            // 
+            lblProximaCarta.AutoSize = true;
+            lblProximaCarta.Location = new Point(98, 27);
+            lblProximaCarta.Name = "lblProximaCarta";
+            lblProximaCarta.Size = new Size(16, 15);
+            lblProximaCarta.TabIndex = 16;
+            lblProximaCarta.Text = "...";
+            lblProximaCarta.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblFormadeGanar
+            // 
+            lblFormadeGanar.AutoSize = true;
+            lblFormadeGanar.Location = new Point(575, 447);
+            lblFormadeGanar.Name = "lblFormadeGanar";
+            lblFormadeGanar.Size = new Size(16, 15);
+            lblFormadeGanar.TabIndex = 17;
+            lblFormadeGanar.Text = "...";
+            // 
             // FormPartida
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 504);
+            Controls.Add(lblFormadeGanar);
+            Controls.Add(lblProximaCarta);
+            Controls.Add(btnSiguiente);
+            Controls.Add(btnResta);
+            Controls.Add(btnAumento);
             Controls.Add(pnlGanador);
             Controls.Add(gbChat);
             Controls.Add(flpHistorial);
@@ -229,7 +279,6 @@
             Controls.Add(ntnLoteria);
             Controls.Add(pbFicha);
             Controls.Add(tlpTablaPartida);
-            Controls.Add(cbVelocidad);
             Controls.Add(label1);
             Controls.Add(bttnPausa);
             Controls.Add(pbCartaActual);
@@ -254,7 +303,6 @@
         private FileSystemWatcher fileSystemWatcher1;
         private Label label1;
         private System.Windows.Forms.Timer timerCartas;
-        private ComboBox cbVelocidad;
         private TableLayoutPanel tlpTablaPartida;
         private PictureBox pbFicha;
         private Button ntnLoteria;
@@ -265,5 +313,10 @@
         private Button btnEnviar;
         private TextBox txtMensaje;
         private Panel pnlGanador;
+        private Button btnResta;
+        private Button btnAumento;
+        private Button btnSiguiente;
+        private Label lblProximaCarta;
+        private Label lblFormadeGanar;
     }
 }

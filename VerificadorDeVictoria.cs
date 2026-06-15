@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,6 @@ namespace JuegoLoteriaPOO
 {
     internal class VerificadorDeVictoria
     {
-
         private Jugador jugador;
         private TablaJugador tabla;
         private List<Carta> historial;
@@ -47,25 +46,46 @@ namespace JuegoLoteriaPOO
             return null;
         }
 
+        private bool VerificarHorizontalFila(TablaJugador tabla, List<Carta> historial, int fila)
+        {
+            for (int columna = 0; columna < 5; columna++)
+            {
+                if (!CasillaValida(tabla.Casillas[fila, columna], historial))
+                    return false;
+            }
+            return true;
+        }
+
+        private bool VerificarVerticalColumna(TablaJugador tabla, List<Carta> historial, int col)
+        {
+            for (int fila = 0; fila < 5; fila++)
+            {
+                if (!CasillaValida(tabla.Casillas[fila, col], historial))
+                    return false;
+            }
+            return true;
+        }
+
+        private bool VerificarPatronEnPosicion(TablaJugador tabla, List<Carta> historial, int[,] patron, int filaInicio, int columnaInicio)
+        {
+            for (int i = 0; i < patron.GetLength(0); i++)
+            {
+                int fila = filaInicio + patron[i, 0];
+                int columna = columnaInicio + patron[i, 1];
+
+                if (!CasillaValida(tabla.Casillas[fila, columna], historial))
+                    return false;
+            }
+            return true;
+        }
+
         private bool VerificarHorizontal(TablaJugador tabla, List<Carta> historial)
         {
             for (int fila = 0; fila < 5; fila++)
             {
-                bool completa = true;
-
-                for (int columna = 0; columna < 5; columna++)
-                {
-                    if (!CasillaValida(tabla.Casillas[fila, columna], historial))
-                    {
-                        completa = false;
-                        break;
-                    }
-                }
-
-                if (completa)
+                if (VerificarHorizontalFila(tabla, historial, fila))
                     return true;
             }
-
             return false;
         }
 
@@ -73,21 +93,9 @@ namespace JuegoLoteriaPOO
         {
             for (int columna = 0; columna < 5; columna++)
             {
-                bool completa = true;
-
-                for (int fila = 0; fila < 5; fila++)
-                {
-                    if (!CasillaValida(tabla.Casillas[fila, columna], historial))
-                    {
-                        completa = false;
-                        break;
-                    }
-                }
-
-                if (completa)
+                if (VerificarVerticalColumna(tabla, historial, columna))
                     return true;
             }
-
             return false;
         }
 
@@ -134,26 +142,93 @@ namespace JuegoLoteriaPOO
             {
                 for (int columnaInicio = 0; columnaInicio <= 2; columnaInicio++)
                 {
-                    bool coincide = true;
-
-                    for (int i = 0; i < patron.GetLength(0); i++)
-                    {
-                        int fila = filaInicio + patron[i, 0];
-                        int columna = columnaInicio + patron[i, 1];
-
-                        if (!CasillaValida(tabla.Casillas[fila, columna], historial))
-                        {
-                            coincide = false;
-                            break;
-                        }
-                    }
-
-                    if (coincide)
+                    if (VerificarPatronEnPosicion(tabla, historial, patron, filaInicio, columnaInicio))
                         return true;
                 }
             }
 
             return false;
+        }
+
+        public Carta ObtenerCartaGanadora(TablaJugador tabla, List<Carta> historial, TipoVictoria tipo)
+        {
+            List<Carta> cartasFigura = new List<Carta>();
+
+            if (tipo == TipoVictoria.Horizontal)
+            {
+                for (int fila = 0; fila < 5; fila++)
+                {
+                    if (VerificarHorizontalFila(tabla, historial, fila))
+                    {
+                        for (int col = 0; col < 5; col++)
+                            cartasFigura.Add(tabla.Casillas[fila, col].Carta);
+                    }
+                }
+            }
+            else if (tipo == TipoVictoria.Vertical)
+            {
+                for (int col = 0; col < 5; col++)
+                {
+                    if (VerificarVerticalColumna(tabla, historial, col))
+                    {
+                        for (int fila = 0; fila < 5; fila++)
+                            cartasFigura.Add(tabla.Casillas[fila, col].Carta);
+                    }
+                }
+            }
+            else if (tipo == TipoVictoria.DiagonalPrincipal)
+            {
+                for (int i = 0; i < 5; i++)
+                    cartasFigura.Add(tabla.Casillas[i, i].Carta);
+            }
+            else if (tipo == TipoVictoria.DiagonalSecundaria)
+            {
+                for (int i = 0; i < 5; i++)
+                    cartasFigura.Add(tabla.Casillas[i, 4 - i].Carta);
+            }
+            else if (tipo == TipoVictoria.TablaCompleta)
+            {
+                foreach (CasillaTabla casilla in tabla.Casillas)
+                    cartasFigura.Add(casilla.Carta);
+            }
+            else // Patrones (Cruzita, T, Pollita, L, J)
+            {
+                if (PatronVictoria.Patrones.ContainsKey(tipo))
+                {
+                    int[,] patron = PatronVictoria.Patrones[tipo];
+                    for (int filaInicio = 0; filaInicio <= 2; filaInicio++)
+                    {
+                        for (int columnaInicio = 0; columnaInicio <= 2; columnaInicio++)
+                        {
+                            if (VerificarPatronEnPosicion(tabla, historial, patron, filaInicio, columnaInicio))
+                            {
+                                for (int i = 0; i < patron.GetLength(0); i++)
+                                {
+                                    int fila = filaInicio + patron[i, 0];
+                                    int col = columnaInicio + patron[i, 1];
+                                    cartasFigura.Add(tabla.Casillas[fila, col].Carta);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Encontrar la carta que aparezca de última en el historial
+            Carta cartaGanadora = null;
+            int maxIndex = -1;
+
+            foreach (Carta c in cartasFigura)
+            {
+                int idx = historial.FindLastIndex(x => x.Id == c.Id);
+                if (idx > maxIndex)
+                {
+                    maxIndex = idx;
+                    cartaGanadora = c;
+                }
+            }
+
+            return cartaGanadora ?? cartasFigura.FirstOrDefault();
         }
 
         private bool CasillaValida(CasillaTabla casilla, List<Carta> historial)

@@ -9,7 +9,7 @@ namespace JuegoLoteriaPOO
     public class TablaJugador
     {
         public CasillaTabla[,] Casillas { get; private set; }
-
+        public bool EsDoble { get; set; }
         public const int Filas = 5;
         public const int Columnas = 5;
 

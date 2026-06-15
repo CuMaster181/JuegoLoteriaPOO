@@ -36,6 +36,7 @@
             label2 = new Label();
             rbHost = new RadioButton();
             rbCliente = new RadioButton();
+            chkTablasDobles = new CheckBox();
             SuspendLayout();
             // 
             // txtIP
@@ -112,10 +113,21 @@
             rbCliente.Text = "Unirse a Sala";
             rbCliente.UseVisualStyleBackColor = true;
             // 
+            // chkTablasDobles
+            // 
+            chkTablasDobles.AutoSize = true;
+            chkTablasDobles.Location = new Point(69, 278);
+            chkTablasDobles.Name = "chkTablasDobles";
+            chkTablasDobles.Size = new Size(98, 19);
+            chkTablasDobles.TabIndex = 8;
+            chkTablasDobles.Text = "Tablas Dobles";
+            chkTablasDobles.UseVisualStyleBackColor = true;
+            // 
             // UcConexion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(chkTablasDobles);
             Controls.Add(rbCliente);
             Controls.Add(rbHost);
             Controls.Add(label2);
@@ -140,5 +152,6 @@
         private Label label2;
         private RadioButton rbHost;
         private RadioButton rbCliente;
+        private CheckBox chkTablasDobles;
     }
 }

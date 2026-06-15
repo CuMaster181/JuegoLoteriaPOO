@@ -14,6 +14,7 @@ namespace JuegoLoteriaPOO
     {
         private TipoPartida tipoPartida;
         private Conexion conexion;
+        private ConfiguracionPartida configuracion;
         public FormMenuPrincipal()
         {
             InitializeComponent();
@@ -60,7 +61,7 @@ namespace JuegoLoteriaPOO
             if (tipo == TipoPartida.Solo)
             {
                 FormCrearTabla frm =
-                    new FormCrearTabla(jugador, tipoPartida, conexion);
+                    new FormCrearTabla(jugador, tipoPartida, conexion, configuracion);
 
                 frm.Show();
 
@@ -76,10 +77,9 @@ namespace JuegoLoteriaPOO
             }
         }
 
-        private void ConexionCompletada(Jugador jugador, Conexion conexion, TipoPartida tipoPartida)
+        private void ConexionCompletada(Jugador jugador, Conexion conexion, TipoPartida tipoPartida, ConfiguracionPartida configuracion)
         {
-            FormCrearTabla frm =
-        new FormCrearTabla(jugador, tipoPartida, conexion);
+            FormCrearTabla frm = new FormCrearTabla(jugador, tipoPartida, conexion, configuracion);
 
             frm.Show();
 

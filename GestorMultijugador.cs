@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
@@ -135,6 +135,33 @@ namespace JuegoLoteriaPOO
                 {
                 }
             }
+        }
+
+        public void Desconectar()
+        {
+            try
+            {
+                if (servidor != null)
+                {
+                    servidor.Stop();
+                }
+            }
+            catch {}
+
+            foreach (TcpClient c in clientes)
+            {
+                try { c.Close(); } catch {}
+            }
+            clientes.Clear();
+
+            try
+            {
+                if (miCliente != null)
+                {
+                    miCliente.Close();
+                }
+            }
+            catch {}
         }
     }
 }

@@ -14,6 +14,7 @@ namespace JuegoLoteriaPOO
     {
 
         public event Action? NuevaPartidaSolicitada;
+        public event Action? Continuar;
         public UcGanador(string ganador)
         {
             InitializeComponent();

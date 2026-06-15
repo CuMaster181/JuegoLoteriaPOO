@@ -63,6 +63,25 @@ namespace JuegoLoteriaPOO.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CartaPosterior {
+            get {
+                object obj = ResourceManager.GetObject("CartaPosterior", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream corre_y_se_va_con {
+            get {
+                return ResourceManager.GetStream("corre_y_se_va_con", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap El_Alacran {
             get {
                 object obj = ResourceManager.GetObject("El_Alacran", resourceCulture);
