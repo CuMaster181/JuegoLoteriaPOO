@@ -11,36 +11,44 @@ namespace JuegoLoteriaPOO
         private Jugador jugador;
         private TablaJugador tabla;
         private List<Carta> historial;
-        public TipoVictoria? VerificarGanador(TablaJugador tabla, List<Carta> historial)
+        /// <summary>
+        /// Verifica si el jugador tiene una figura ganadora.
+        /// Si se proporciona <paramref name="figurasHabilitadas"/>, solo se
+        /// consideran validas las figuras incluidas en ese conjunto. Si es
+        /// null, se consideran todas las figuras (comportamiento por defecto).
+        /// </summary>
+        public TipoVictoria? VerificarGanador(TablaJugador tabla, List<Carta> historial, HashSet<TipoVictoria>? figurasHabilitadas = null)
         {
-            if (VerificarHorizontal(tabla, historial))
+            bool Habilitada(TipoVictoria tipo) => figurasHabilitadas == null || figurasHabilitadas.Contains(tipo);
+
+            if (Habilitada(TipoVictoria.Horizontal) && VerificarHorizontal(tabla, historial))
                 return TipoVictoria.Horizontal;
 
-            if (VerificarVertical(tabla, historial))
+            if (Habilitada(TipoVictoria.Vertical) && VerificarVertical(tabla, historial))
                 return TipoVictoria.Vertical;
 
-            if (VerificarDiagonalPrincipal(tabla, historial))
+            if (Habilitada(TipoVictoria.DiagonalPrincipal) && VerificarDiagonalPrincipal(tabla, historial))
                 return TipoVictoria.DiagonalPrincipal;
 
-            if (VerificarDiagonalSecundaria(tabla, historial))
+            if (Habilitada(TipoVictoria.DiagonalSecundaria) && VerificarDiagonalSecundaria(tabla, historial))
                 return TipoVictoria.DiagonalSecundaria;
 
-            if (VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.Cruzita]))
+            if (Habilitada(TipoVictoria.Cruzita) && VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.Cruzita]))
                 return TipoVictoria.Cruzita;
 
-            if (VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.T]))
+            if (Habilitada(TipoVictoria.T) && VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.T]))
                 return TipoVictoria.T;
 
-            if (VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.Pollita]))
+            if (Habilitada(TipoVictoria.Pollita) && VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.Pollita]))
                 return TipoVictoria.Pollita;
 
-            if (VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.L]))
+            if (Habilitada(TipoVictoria.L) && VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.L]))
                 return TipoVictoria.L;
 
-            if (VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.J]))
+            if (Habilitada(TipoVictoria.J) && VerificarPatron(tabla, historial, PatronVictoria.Patrones[TipoVictoria.J]))
                 return TipoVictoria.J;
 
-            if (VerificarTablaCompleta(tabla, historial))
+            if (Habilitada(TipoVictoria.TablaCompleta) && VerificarTablaCompleta(tabla, historial))
                 return TipoVictoria.TablaCompleta;
 
             return null;

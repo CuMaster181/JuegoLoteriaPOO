@@ -11,5 +11,11 @@ namespace JuegoLoteriaPOO
         public string NombreJugador { get; set; }
 
         public List<int> Cartas { get; set; } = new List<int>();
+
+        // Eliminado el operador implícito inválido que causaba CS0555
+        // public static implicit operator TablaGuardada(TablaGuardada v)
+        // {
+        //     throw new NotImplementedException();
+        // }
     }
 }

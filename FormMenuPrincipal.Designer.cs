@@ -58,7 +58,7 @@
             pnlMostrarUc.Dock = DockStyle.Fill;
             pnlMostrarUc.Location = new Point(0, 0);
             pnlMostrarUc.Name = "pnlMostrarUc";
-            pnlMostrarUc.Size = new Size(318, 450);
+            pnlMostrarUc.Size = new Size(466, 535);
             pnlMostrarUc.TabIndex = 2;
             pnlMostrarUc.Visible = false;
             // 
@@ -66,7 +66,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(318, 450);
+            ClientSize = new Size(466, 535);
             Controls.Add(pnlMostrarUc);
             Controls.Add(bttnMultijugador);
             Controls.Add(bttnSolitario);

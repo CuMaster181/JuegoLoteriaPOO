@@ -79,7 +79,7 @@
             Controls.Add(txtNombre);
             Controls.Add(bttnContinuar);
             Name = "UcPerfil";
-            Size = new Size(334, 489);
+            Size = new Size(482, 574);
             ResumeLayout(false);
             PerformLayout();
         }

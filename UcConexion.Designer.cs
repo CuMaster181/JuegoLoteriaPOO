@@ -2,30 +2,17 @@
 {
     partial class UcConexion
     {
-        /// <summary> 
-        /// Variable del diseñador necesaria.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Limpiar los recursos que se estén usando.
-        /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Código generado por el Diseñador de componentes
 
-        /// <summary> 
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
-        /// </summary>
         private void InitializeComponent()
         {
             txtIP = new TextBox();
@@ -36,26 +23,31 @@
             label2 = new Label();
             rbHost = new RadioButton();
             rbCliente = new RadioButton();
+            lblNumeroTablas = new Label();
+            nudNumeroTablas = new NumericUpDown();
             chkTablasDobles = new CheckBox();
+            lblFiguras = new Label();
+            clbFiguras = new CheckedListBox();
+            ((System.ComponentModel.ISupportInitialize)nudNumeroTablas).BeginInit();
             SuspendLayout();
             // 
             // txtIP
             // 
-            txtIP.Location = new Point(69, 185);
+            txtIP.Location = new Point(158, 73);
             txtIP.Name = "txtIP";
             txtIP.Size = new Size(170, 23);
             txtIP.TabIndex = 0;
             // 
             // txtPuerto
             // 
-            txtPuerto.Location = new Point(69, 239);
+            txtPuerto.Location = new Point(158, 127);
             txtPuerto.Name = "txtPuerto";
             txtPuerto.Size = new Size(170, 23);
             txtPuerto.TabIndex = 1;
             // 
             // bttnConectar
             // 
-            bttnConectar.Location = new Point(69, 323);
+            bttnConectar.Location = new Point(158, 510);
             bttnConectar.Name = "bttnConectar";
             bttnConectar.Size = new Size(170, 23);
             bttnConectar.TabIndex = 2;
@@ -65,7 +57,7 @@
             // 
             // bttncancelar
             // 
-            bttncancelar.Location = new Point(69, 375);
+            bttncancelar.Location = new Point(158, 545);
             bttncancelar.Name = "bttncancelar";
             bttncancelar.Size = new Size(170, 23);
             bttncancelar.TabIndex = 3;
@@ -76,7 +68,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(69, 167);
+            label1.Location = new Point(158, 55);
             label1.Name = "label1";
             label1.Size = new Size(20, 15);
             label1.TabIndex = 4;
@@ -85,7 +77,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(69, 221);
+            label2.Location = new Point(158, 109);
             label2.Name = "label2";
             label2.Size = new Size(52, 15);
             label2.TabIndex = 5;
@@ -94,7 +86,7 @@
             // rbHost
             // 
             rbHost.AutoSize = true;
-            rbHost.Location = new Point(69, 88);
+            rbHost.Location = new Point(22, 250);
             rbHost.Name = "rbHost";
             rbHost.Size = new Size(77, 19);
             rbHost.TabIndex = 6;
@@ -105,7 +97,7 @@
             // rbCliente
             // 
             rbCliente.AutoSize = true;
-            rbCliente.Location = new Point(69, 113);
+            rbCliente.Location = new Point(22, 275);
             rbCliente.Name = "rbCliente";
             rbCliente.Size = new Size(91, 19);
             rbCliente.TabIndex = 7;
@@ -113,21 +105,62 @@
             rbCliente.Text = "Unirse a Sala";
             rbCliente.UseVisualStyleBackColor = true;
             // 
+            // lblNumeroTablas
+            // 
+            lblNumeroTablas.AutoSize = true;
+            lblNumeroTablas.Location = new Point(158, 162);
+            lblNumeroTablas.Name = "lblNumeroTablas";
+            lblNumeroTablas.Size = new Size(108, 15);
+            lblNumeroTablas.TabIndex = 8;
+            lblNumeroTablas.Text = "Número de tablas:";
+            // 
+            // nudNumeroTablas
+            // 
+            nudNumeroTablas.Location = new Point(278, 160);
+            nudNumeroTablas.Minimum = 1;
+            nudNumeroTablas.Maximum = 4;
+            nudNumeroTablas.Value = 1;
+            nudNumeroTablas.Name = "nudNumeroTablas";
+            nudNumeroTablas.Size = new Size(50, 23);
+            nudNumeroTablas.TabIndex = 9;
+            // 
             // chkTablasDobles
             // 
             chkTablasDobles.AutoSize = true;
-            chkTablasDobles.Location = new Point(69, 278);
+            chkTablasDobles.Location = new Point(158, 192);
             chkTablasDobles.Name = "chkTablasDobles";
             chkTablasDobles.Size = new Size(98, 19);
-            chkTablasDobles.TabIndex = 8;
+            chkTablasDobles.TabIndex = 10;
             chkTablasDobles.Text = "Tablas Dobles";
             chkTablasDobles.UseVisualStyleBackColor = true;
+            // 
+            // lblFiguras
+            // 
+            lblFiguras.AutoSize = true;
+            lblFiguras.Location = new Point(158, 222);
+            lblFiguras.Name = "lblFiguras";
+            lblFiguras.Size = new Size(98, 15);
+            lblFiguras.TabIndex = 11;
+            lblFiguras.Text = "Formas de ganar:";
+            // 
+            // clbFiguras
+            // 
+            clbFiguras.CheckOnClick = true;
+            clbFiguras.FormattingEnabled = true;
+            clbFiguras.Location = new Point(158, 240);
+            clbFiguras.Name = "clbFiguras";
+            clbFiguras.Size = new Size(196, 255);
+            clbFiguras.TabIndex = 12;
             // 
             // UcConexion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(clbFiguras);
+            Controls.Add(lblFiguras);
             Controls.Add(chkTablasDobles);
+            Controls.Add(nudNumeroTablas);
+            Controls.Add(lblNumeroTablas);
             Controls.Add(rbCliente);
             Controls.Add(rbHost);
             Controls.Add(label2);
@@ -137,7 +170,8 @@
             Controls.Add(txtPuerto);
             Controls.Add(txtIP);
             Name = "UcConexion";
-            Size = new Size(334, 489);
+            Size = new Size(482, 590);
+            ((System.ComponentModel.ISupportInitialize)nudNumeroTablas).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,6 +186,10 @@
         private Label label2;
         private RadioButton rbHost;
         private RadioButton rbCliente;
+        private Label lblNumeroTablas;
+        private NumericUpDown nudNumeroTablas;
         private CheckBox chkTablasDobles;
+        private Label lblFiguras;
+        private CheckedListBox clbFiguras;
     }
 }

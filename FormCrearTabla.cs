@@ -15,16 +15,17 @@ namespace JuegoLoteriaPOO
     {
         private Jugador jugador;
         private GeneradorTablas generador;
-        private TablaJugador tablaJugador;
+        private List<TablaJugador> tablasJugador = new List<TablaJugador>();
         private Carta? cartaSeleccionada;
         private Conexion conexion;
         private ConfiguracionPartida configuracion;
         private TipoPartida tipoPartida;
+        private int numeroTablas;
+
         public FormCrearTabla(Jugador jugador, TipoPartida tipoPartida, Conexion conexion, ConfiguracionPartida configuracion)
         {
             InitializeComponent();
             generador = new GeneradorTablas();
-            tablaJugador = new TablaJugador();
             this.jugador = jugador;
             this.tipoPartida = tipoPartida;
             this.conexion = conexion;
@@ -32,145 +33,186 @@ namespace JuegoLoteriaPOO
             // Asegurar que configuracion no sea nula
             this.configuracion = configuracion ?? new ConfiguracionPartida();
 
-            // Forzar tablas dobles en modo Solo para evitar inconsistencias en tiempo de ejecución
-            if (this.tipoPartida == TipoPartida.Solo)
-            {
-                this.configuracion.TablasDobles = true;
-            }
+            // En modo Solo siempre al menos 1 tabla
+            if (this.tipoPartida == TipoPartida.Solo && this.configuracion.NumeroTablas < 1)
+                this.configuracion.NumeroTablas = 1;
+
+            numeroTablas = Math.Max(1, Math.Min(4, this.configuracion.NumeroTablas));
 
             base.FormClosed += (s, e) =>
-{
-            var formMenu = Application.OpenForms.OfType<FormMenuPrincipal>().FirstOrDefault();
-
-            if (formMenu != null)
             {
-                formMenu.Show();
-            }
-            else
-            {
-                 Application.Exit();
-            }
+                var formMenu = Application.OpenForms.OfType<FormMenuPrincipal>().FirstOrDefault();
+                if (formMenu != null)
+                    formMenu.Show();
+                else
+                    Application.Exit();
             };
         }
 
         private void FormCrearTabla_Load(object sender, EventArgs e)
         {
-            CrearCasillasTabla();
-
+            InicializarTablas();
             CargarCartasDisponibles();
         }
 
-        private void Casilla_DragEnter(object sender, DragEventArgs e)
+        // ─── Inicialización de múltiples tablas ───────────────────────────────
+
+        private void InicializarTablas()
         {
-            if (e.Data.GetDataPresent(typeof(Carta)))
+            tablasJugador.Clear();
+            tabControlTablas.TabPages.Clear();
+
+            for (int t = 0; t < numeroTablas; t++)
             {
-                e.Effect = DragDropEffects.Move;
+                var tabla = new TablaJugador();
+                tabla.EsDoble = configuracion.TablasDobles;
+                tablasJugador.Add(tabla);
+
+                TabPage page = new TabPage($"Tabla {t + 1}");
+                page.Tag = t; // índice
+
+                TableLayoutPanel tlp = CrearTlpTabla(t);
+                page.Controls.Add(tlp);
+
+                tabControlTablas.TabPages.Add(page);
             }
         }
 
-        private void Casilla_DragDrop(object sender, DragEventArgs e)
+        private TableLayoutPanel CrearTlpTabla(int indiceTabla)
         {
-            PictureBox pbCasilla = (PictureBox)sender;
+            TableLayoutPanel tlp = new TableLayoutPanel();
+            tlp.Name = $"tlpTabla_{indiceTabla}";
+            tlp.Tag = indiceTabla;
+            tlp.ColumnCount = 5;
+            tlp.RowCount = 5;
+            tlp.Dock = DockStyle.Fill;
+            tlp.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
-            if (pbCasilla.Image != null)
+            for (int i = 0; i < 5; i++)
             {
-                MessageBox.Show("Esta casilla ya tiene una carta.");
-                return;
+                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+                tlp.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             }
-
-            Carta carta = (Carta)e.Data.GetData(typeof(Carta));
-
-            if (CartaYaExiste(carta.Id))
-            {
-                MessageBox.Show("Esa carta ya está en la tabla.");
-                return;
-            }
-
-            pbCasilla.Image = carta.RutaImagen;
-
-            pbCasilla.SizeMode = PictureBoxSizeMode.StretchImage;
-
-            pbCasilla.Tag = carta;
-
-            int indice = tlpTabla.Controls.GetChildIndex(pbCasilla);
-
-            int fila = indice / 5;
-
-            int columna = indice % 5;
-
-            if (configuracion.TablasDobles)
-            {
-                if ((fila == 1 && columna == 1) || (fila == 3 && columna == 3))
-                {
-                    CasillaTabla casillaExistente1 = tablaJugador.Casillas[1, 1];
-                    CasillaTabla casillaExistente2 = tablaJugador.Casillas[3, 3];
-
-                    if (casillaExistente1 != null || casillaExistente2 != null)
-                    {
-                        MessageBox.Show("La carta duplicada ya fue asignada.");
-
-                        return;
-                    }
-                }
-            }
-            if (configuracion.TablasDobles)
-            {
-                if (fila == 1 && columna == 1)
-                {
-                    DuplicarCarta(3, 3, carta);
-                }
-                else if (fila == 3 && columna == 3)
-                {
-                    DuplicarCarta(1, 1, carta);
-                }
-            }
-        }
-
-        private void DuplicarCarta(int filaDestino, int columnaDestino, Carta carta)
-        {
-            foreach (Control control in tlpTabla.Controls)
-            {
-                if (tlpTabla.GetRow(control) == filaDestino && tlpTabla.GetColumn(control) == columnaDestino)
-                {
-                    PictureBox pb = (PictureBox)control;
-
-                    pb.Image = carta.RutaImagen;
-
-                    pb.Tag = carta;
-
-                    tablaJugador.AsignarCasilla(filaDestino, columnaDestino, carta);
-
-                    break;
-                }
-            }
-        }
-
-        private void CrearCasillasTabla()
-        {
-            tlpTabla.Controls.Clear();
 
             for (int fila = 0; fila < 5; fila++)
             {
                 for (int columna = 0; columna < 5; columna++)
                 {
                     PictureBox pb = new PictureBox();
-
                     pb.Dock = DockStyle.Fill;
-                    pb.Width = 90;
-                    pb.Height = 130;
-                    pb.Margin = new Padding(5);
+                    pb.Margin = new Padding(3);
                     pb.BorderStyle = BorderStyle.FixedSingle;
                     pb.SizeMode = PictureBoxSizeMode.StretchImage;
                     pb.AllowDrop = true;
+                    pb.Tag = null; // Carta irá aquí
 
                     pb.DragEnter += Casilla_DragEnter;
-                    pb.DragDrop += Casilla_DragDrop;
-                    pb.MouseDoubleClick += Casilla_MouseDoubleClick;
+                    pb.DragDrop += (s, e) => Casilla_DragDrop(s, e, indiceTabla);
+                    pb.MouseDoubleClick += (s, e) => Casilla_MouseDoubleClick(s, e, indiceTabla);
 
-                    tlpTabla.Controls.Add(pb, columna, fila);
+                    tlp.Controls.Add(pb, columna, fila);
+                }
+            }
+
+            return tlp;
+        }
+
+        private TableLayoutPanel? ObtenerTlpActual()
+        {
+            if (tabControlTablas.SelectedTab == null) return null;
+            return tabControlTablas.SelectedTab.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+        }
+
+        private TableLayoutPanel? ObtenerTlpPorIndice(int idx)
+        {
+            if (idx < 0 || idx >= tabControlTablas.TabPages.Count) return null;
+            return tabControlTablas.TabPages[idx].Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+        }
+
+        private int IndiceTablaActual()
+        {
+            return tabControlTablas.SelectedIndex >= 0 ? tabControlTablas.SelectedIndex : 0;
+        }
+
+        // ─── Drag & Drop ──────────────────────────────────────────────────────
+
+        private void Casilla_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(Carta)))
+                e.Effect = DragDropEffects.Move;
+        }
+
+        private void Casilla_DragDrop(object sender, DragEventArgs e, int indiceTabla)
+        {
+            PictureBox pbCasilla = (PictureBox)sender;
+
+            if (pbCasilla.Tag is Carta)
+            {
+                MessageBox.Show("Esta casilla ya tiene una carta.");
+                return;
+            }
+
+            Carta carta = (Carta)e.Data.GetData(typeof(Carta));
+            TablaJugador tabla = tablasJugador[indiceTabla];
+            TableLayoutPanel tlp = ObtenerTlpPorIndice(indiceTabla)!;
+
+            if (CartaYaExisteEnTlp(tlp, carta.Id))
+            {
+                MessageBox.Show("Esa carta ya está en esta tabla.");
+                return;
+            }
+
+            int indice = tlp.Controls.GetChildIndex(pbCasilla);
+            int fila = indice / 5;
+            int columna = indice % 5;
+
+            pbCasilla.Image = carta.RutaImagen;
+            pbCasilla.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbCasilla.Tag = carta;
+            tabla.AsignarCasilla(fila, columna, carta);
+
+            if (configuracion.TablasDobles)
+            {
+                if (fila == 1 && columna == 1)
+                    DuplicarCartaEnTlp(tlp, tabla, 3, 3, carta);
+                else if (fila == 3 && columna == 3)
+                    DuplicarCartaEnTlp(tlp, tabla, 1, 1, carta);
+            }
+        }
+
+        private void DuplicarCartaEnTlp(TableLayoutPanel tlp, TablaJugador tabla, int filaDestino, int columnaDestino, Carta carta)
+        {
+            foreach (Control control in tlp.Controls)
+            {
+                if (tlp.GetRow(control) == filaDestino && tlp.GetColumn(control) == columnaDestino)
+                {
+                    PictureBox pb = (PictureBox)control;
+                    if (pb.Tag is Carta) break; // ya tiene carta
+                    pb.Image = carta.RutaImagen;
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pb.Tag = carta;
+                    tabla.AsignarCasilla(filaDestino, columnaDestino, carta);
+                    break;
                 }
             }
         }
+
+        private void Casilla_MouseDoubleClick(object sender, MouseEventArgs e, int indiceTabla)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Tag is Carta carta)
+            {
+                TableLayoutPanel tlp = ObtenerTlpPorIndice(indiceTabla)!;
+                int indice = tlp.Controls.GetChildIndex(pb);
+                int fila = indice / 5;
+                int columna = indice % 5;
+                tablasJugador[indiceTabla].LimpiarCasilla(fila, columna);
+                pb.Image = null;
+                pb.Tag = null;
+            }
+        }
+
+        // ─── Cargar cartas disponibles ────────────────────────────────────────
 
         private void CargarCartasDisponibles()
         {
@@ -179,10 +221,9 @@ namespace JuegoLoteriaPOO
             foreach (Carta carta in Carta.cartas.Values)
             {
                 PictureBox pbCarta = new PictureBox();
-
-                pbCarta.Width = 90;
-                pbCarta.Height = 130;
-                pbCarta.Margin = new Padding(5);
+                pbCarta.Width = 75;
+                pbCarta.Height = 110;
+                pbCarta.Margin = new Padding(4);
                 pbCarta.SizeMode = PictureBoxSizeMode.StretchImage;
                 pbCarta.BorderStyle = BorderStyle.FixedSingle;
                 pbCarta.Image = carta.RutaImagen;
@@ -195,247 +236,192 @@ namespace JuegoLoteriaPOO
         private void Carta_MouseDown(object sender, MouseEventArgs e)
         {
             PictureBox pbCarta = (PictureBox)sender;
-
             Carta carta = (Carta)pbCarta.Tag;
-
             pbCarta.DoDragDrop(carta, DragDropEffects.Move);
         }
 
-        private void Casilla_MouseDoubleClick(object sender, MouseEventArgs e)
+        // ─── Random ───────────────────────────────────────────────────────────
+
+        private void bttnRandom_Click(object sender, EventArgs e)
         {
-            PictureBox pb = (PictureBox)sender;
-
-            if (pb.Tag is Carta)
+            // Aleatorizar TODAS las tablas
+            for (int t = 0; t < numeroTablas; t++)
             {
-                int indice = tlpTabla.Controls.GetChildIndex(pb);
-
-                int fila = indice / 5;
-
-                int columna = indice % 5;
-
-                tablaJugador.Casillas[fila, columna] = null;
-
-                pb.Image = null;
-
-                pb.Tag = null;
+                AleatoriarTabla(t);
             }
         }
 
-        private bool CartaYaExiste(int idCarta)
+        private void AleatoriarTabla(int indiceTabla)
         {
-            foreach (Control control in tlpTabla.Controls)
+            TablaJugador tabla = tablasJugador[indiceTabla];
+            TableLayoutPanel tlp = ObtenerTlpPorIndice(indiceTabla)!;
+
+            // Limpiar tabla
+            tabla = new TablaJugador();
+            tabla.EsDoble = configuracion.TablasDobles;
+            tablasJugador[indiceTabla] = tabla;
+
+            foreach (Control control in tlp.Controls)
             {
-                if (control is PictureBox pb && pb.Tag is Carta carta && carta.Id == idCarta)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private void LimpiarTabla()
-        {
-            foreach (Control control in tlpTabla.Controls)
-            {
-                PictureBox pb = control as PictureBox;
-
-                if (pb != null)
+                if (control is PictureBox pb)
                 {
                     pb.Image = null;
                     pb.Tag = null;
                 }
             }
-        }
-
-        private void bttnRandom_Click(object sender, EventArgs e)
-        {
-            tablaJugador = new TablaJugador();
-            tablaJugador.EsDoble = configuracion.TablasDobles;
-
-            // Limpiar visualmente la tabla antes de asignar
-            LimpiarTabla();
 
             if (configuracion.TablasDobles)
             {
-                // MODO DOBLE: 24 cartas unicas; la casilla [3,3] es copia de [1,1]
                 List<Carta> cartasAleatorias = generador.GenerarCartasAleatorias(24);
                 int indiceCarta = 0;
 
-                foreach (Control control in tlpTabla.Controls)
+                foreach (Control control in tlp.Controls)
                 {
                     if (control is PictureBox pb)
                     {
-                        int indice = tlpTabla.Controls.GetChildIndex(pb);
+                        int indice = tlp.Controls.GetChildIndex(pb);
                         int fila = indice / 5;
                         int columna = indice % 5;
 
-                        if (fila == 3 && columna == 3)
-                        {
-                            // Se llenara despues al procesar [1,1]
-                            continue;
-                        }
+                        if (fila == 3 && columna == 3) continue;
 
-                        Carta carta = cartasAleatorias[indiceCarta];
-
+                        Carta carta = cartasAleatorias[indiceCarta++];
                         pb.Image = carta.RutaImagen;
                         pb.SizeMode = PictureBoxSizeMode.StretchImage;
                         pb.Tag = carta;
-
-                        tablaJugador.AsignarCasilla(fila, columna, carta);
+                        tabla.AsignarCasilla(fila, columna, carta);
 
                         if (fila == 1 && columna == 1)
-                        {
-                            DuplicarCarta(3, 3, carta);
-                        }
-
-                        indiceCarta++;
+                            DuplicarCartaEnTlp(tlp, tabla, 3, 3, carta);
                     }
                 }
             }
             else
             {
-                // MODO NORMAL: 25 cartas todas diferentes, incluyendo [3,3]
                 List<Carta> cartasAleatorias = generador.GenerarCartasAleatorias(25);
                 int indiceCarta = 0;
 
-                foreach (Control control in tlpTabla.Controls)
+                foreach (Control control in tlp.Controls)
                 {
                     if (control is PictureBox pb)
                     {
-                        int indice = tlpTabla.Controls.GetChildIndex(pb);
+                        int indice = tlp.Controls.GetChildIndex(pb);
                         int fila = indice / 5;
                         int columna = indice % 5;
 
-                        Carta carta = cartasAleatorias[indiceCarta];
-
+                        Carta carta = cartasAleatorias[indiceCarta++];
                         pb.Image = carta.RutaImagen;
                         pb.SizeMode = PictureBoxSizeMode.StretchImage;
                         pb.Tag = carta;
-
-                        tablaJugador.AsignarCasilla(fila, columna, carta);
-
-                        indiceCarta++;
+                        tabla.AsignarCasilla(fila, columna, carta);
                     }
                 }
             }
         }
 
+        // ─── Inicio ───────────────────────────────────────────────────────────
+
         private void bttnInicio_Click(object sender, EventArgs e)
         {
-            if (!tablaJugador.EstaCompleta())
+            for (int t = 0; t < numeroTablas; t++)
             {
-                MessageBox.Show($"Faltan {25 - tablaJugador.ContarCartas()} cartas para completar la tabla.");
-
-                return;
+                if (!tablasJugador[t].EstaCompleta())
+                {
+                    MessageBox.Show($"La tabla {t + 1} le faltan {25 - tablasJugador[t].ContarCartas()} cartas.");
+                    tabControlTablas.SelectedIndex = t;
+                    return;
+                }
             }
 
-            jugador.Tabla = tablaJugador;
+            jugador.Tablas = new List<TablaJugador>(tablasJugador);
 
             FormPartida frm = new FormPartida(jugador, tipoPartida, conexion, configuracion);
-
             frm.Show();
-
             this.Hide();
         }
 
+        // ─── Guardar / Cargar tabla ───────────────────────────────────────────
+
         private void btnGuardarTabla_Click(object sender, EventArgs e)
         {
-            if (!tablaJugador.EstaCompleta())
+            int t = IndiceTablaActual();
+            if (!tablasJugador[t].EstaCompleta())
             {
                 MessageBox.Show("Completa la tabla primero.");
-
                 return;
             }
 
             TablaGuardada tabla = new TablaGuardada();
-
             tabla.NombreJugador = jugador.Nombre;
 
             for (int fila = 0; fila < 5; fila++)
-            {
                 for (int columna = 0; columna < 5; columna++)
-                {
-                    tabla.Cartas.Add(tablaJugador.Casillas[fila, columna].Carta.Id);
-                }
-            }
+                    tabla.Cartas.Add(tablasJugador[t].Casillas[fila, columna].Carta.Id);
 
             Directory.CreateDirectory("TablasGuardadas");
 
             SaveFileDialog guardar = new SaveFileDialog();
-
             guardar.InitialDirectory = Path.Combine(Application.StartupPath, "TablasGuardadas");
-
             guardar.Filter = "Tabla (*.json)|*.json";
+            guardar.FileName = $"{jugador.Nombre}_Tabla{t + 1}";
 
-            guardar.FileName = jugador.Nombre + "_Tabla";
+            if (guardar.ShowDialog() != DialogResult.OK) return;
 
-            if (guardar.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-
-            string json = JsonSerializer.Serialize(tabla, new JsonSerializerOptions
-            {
-                WriteIndented = true
-                    });
-
+            string json = JsonSerializer.Serialize(tabla, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(guardar.FileName, json);
-
             MessageBox.Show("Tabla guardada.");
         }
 
         private void btnCargarTabla_Click(object sender, EventArgs e)
         {
             OpenFileDialog abrir = new OpenFileDialog();
-
             abrir.InitialDirectory = Path.Combine(Application.StartupPath, "TablasGuardadas");
-
             abrir.Filter = "Tabla (*.json)|*.json";
 
-            if (abrir.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
+            if (abrir.ShowDialog() != DialogResult.OK) return;
 
             string json = File.ReadAllText(abrir.FileName);
-
             TablaGuardada tabla = JsonSerializer.Deserialize<TablaGuardada>(json);
 
-            CargarTablaGuardada(tabla);
+            int t = IndiceTablaActual();
+            CargarTablaGuardadaEnIndice(t, tabla);
         }
 
-        private void CargarTablaGuardada(TablaGuardada tabla)
+        private void CargarTablaGuardadaEnIndice(int indiceTabla, TablaGuardada tabla)
         {
-            tablaJugador = new TablaJugador();
+            tablasJugador[indiceTabla] = new TablaJugador();
+            TableLayoutPanel tlp = ObtenerTlpPorIndice(indiceTabla)!;
 
             int indiceCarta = 0;
-
-            foreach (Control control in tlpTabla.Controls)
+            foreach (Control control in tlp.Controls)
             {
                 if (control is PictureBox pb)
                 {
-                    int indice = tlpTabla.Controls.GetChildIndex(pb);
-
+                    int indice = tlp.Controls.GetChildIndex(pb);
                     int fila = indice / 5;
-
                     int columna = indice % 5;
 
-                    int idCarta = tabla.Cartas[indiceCarta];
-
+                    int idCarta = tabla.Cartas[indiceCarta++];
                     Carta carta = Carta.cartas[idCarta];
 
                     pb.Image = carta.RutaImagen;
-
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
                     pb.Tag = carta;
-
-                    tablaJugador.AsignarCasilla(fila, columna, carta);
-
-                    indiceCarta++;
+                    tablasJugador[indiceTabla].AsignarCasilla(fila, columna, carta);
                 }
             }
 
             MessageBox.Show("Tabla cargada.");
+        }
+
+        // ─── Helpers ─────────────────────────────────────────────────────────
+
+        private bool CartaYaExisteEnTlp(TableLayoutPanel tlp, int idCarta)
+        {
+            foreach (Control control in tlp.Controls)
+                if (control is PictureBox pb && pb.Tag is Carta c && c.Id == idCarta)
+                    return true;
+            return false;
         }
     }
 }

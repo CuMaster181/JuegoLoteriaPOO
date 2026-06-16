@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JuegoLoteriaPOO
 {
-    internal enum TipoVictoria
+    public enum TipoVictoria
     {
         Horizontal,
         Vertical,

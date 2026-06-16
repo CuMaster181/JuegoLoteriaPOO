@@ -12,6 +12,9 @@ namespace JuegoLoteriaPOO
         private TcpClient miCliente;
         private TcpListener servidor;
 
+        // Buffer acumulador para manejar TCP coalescing
+        private string bufferPendiente = "";
+
         public bool EsHost { get; private set; }
 
         public async Task IniciarServidor(int puerto)
@@ -31,7 +34,7 @@ namespace JuegoLoteriaPOO
 
                 clientes.Add(cliente);
 
-                Escuchar(cliente);
+                Escuchar(cliente, new StringBuilder());
             }
         }
 
@@ -47,12 +50,13 @@ namespace JuegoLoteriaPOO
                 ip,
                 puerto);
 
-            Escuchar(miCliente);
+            Escuchar(miCliente, new StringBuilder());
         }
 
         public void Enviar(string mensaje)
         {
-            byte[] datos = Encoding.UTF8.GetBytes(mensaje);
+            // Agregar separador de mensaje para evitar TCP coalescing
+            byte[] datos = Encoding.UTF8.GetBytes(mensaje + "\n");
 
             if (EsHost)
             {
@@ -79,45 +83,54 @@ namespace JuegoLoteriaPOO
             }
         }
 
-        private async void Escuchar(TcpClient cliente)
+        private async void Escuchar(TcpClient cliente, StringBuilder acumulador)
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[4096];
 
             while (cliente != null)
             {
-                int bytes =
-                    await cliente.GetStream()
-                    .ReadAsync(
-                        buffer,
-                        0,
-                        buffer.Length);
+                int bytes;
+                try
+                {
+                    bytes = await cliente.GetStream()
+                        .ReadAsync(buffer, 0, buffer.Length);
+                }
+                catch
+                {
+                    break;
+                }
 
                 if (bytes <= 0)
                     break;
 
-                string mensaje =
-                    Encoding.UTF8.GetString(
-                        buffer,
-                        0,
-                        bytes);
+                string recibido = Encoding.UTF8.GetString(buffer, 0, bytes);
+                acumulador.Append(recibido);
 
-                MensajeRecibido?.Invoke(mensaje);
-
-                if (EsHost)
+                // Procesar todos los mensajes completos (separados por \n)
+                string acumulado = acumulador.ToString();
+                int pos;
+                while ((pos = acumulado.IndexOf('\n')) >= 0)
                 {
-                    ReenviarATodos(
-                        mensaje,
-                        cliente);
+                    string mensaje = acumulado[..pos].Trim();
+                    acumulado = acumulado[(pos + 1)..];
+
+                    if (!string.IsNullOrWhiteSpace(mensaje))
+                    {
+                        MensajeRecibido?.Invoke(mensaje);
+
+                        if (EsHost)
+                            ReenviarATodos(mensaje + "\n", cliente);
+                    }
                 }
+
+                acumulador.Clear();
+                acumulador.Append(acumulado);
             }
         }
 
-        private void ReenviarATodos(
-    string mensaje,
-    TcpClient remitente)
+        private void ReenviarATodos(string mensaje, TcpClient remitente)
         {
-            byte[] datos =
-                Encoding.UTF8.GetBytes(mensaje);
+            byte[] datos = Encoding.UTF8.GetBytes(mensaje);
 
             foreach (TcpClient c in clientes)
             {
@@ -126,10 +139,7 @@ namespace JuegoLoteriaPOO
 
                 try
                 {
-                    c.GetStream().Write(
-                        datos,
-                        0,
-                        datos.Length);
+                    c.GetStream().Write(datos, 0, datos.Length);
                 }
                 catch
                 {
@@ -142,26 +152,22 @@ namespace JuegoLoteriaPOO
             try
             {
                 if (servidor != null)
-                {
                     servidor.Stop();
-                }
             }
-            catch {}
+            catch { }
 
             foreach (TcpClient c in clientes)
             {
-                try { c.Close(); } catch {}
+                try { c.Close(); } catch { }
             }
             clientes.Clear();
 
             try
             {
                 if (miCliente != null)
-                {
                     miCliente.Close();
-                }
             }
-            catch {}
+            catch { }
         }
     }
 }
