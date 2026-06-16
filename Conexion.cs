@@ -11,5 +11,7 @@ namespace JuegoLoteriaPOO
         public string IP { get; set; }
         public int Puerto { get; set; }
         public bool EsHost { get; set; }
+        public HashSet<string> JugadoresConectados { get; } = new(StringComparer.OrdinalIgnoreCase);
+        internal GestorMultijugador? Red { get; set; }
     }
 }

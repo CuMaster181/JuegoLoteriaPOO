@@ -27,8 +27,8 @@ namespace JuegoLoteriaPOO
 
             if (!esHost)
             {
-                btnCartaMayor.Visible = false;
-                btnContinuar.Visible = false;
+                btnCartaMayor.Enabled = false;
+                btnContinuar.Enabled = false;
                 lblEmpate.Text = "Esperando decisión del Host...";
             }
         }

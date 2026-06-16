@@ -353,6 +353,7 @@ namespace JuegoLoteriaPOO
 
             TablaGuardada tabla = new TablaGuardada();
             tabla.NombreJugador = jugador.Nombre;
+            tabla.EsDoble = tablasJugador[t].EsDoble;
 
             for (int fila = 0; fila < 5; fila++)
                 for (int columna = 0; columna < 5; columna++)
@@ -389,7 +390,14 @@ namespace JuegoLoteriaPOO
 
         private void CargarTablaGuardadaEnIndice(int indiceTabla, TablaGuardada tabla)
         {
+            if (tabla.EsDoble != configuracion.TablasDobles)
+            {
+                MessageBox.Show("La tabla guardada no coincide con el tipo de tablas configurado por el Host.");
+                return;
+            }
+
             tablasJugador[indiceTabla] = new TablaJugador();
+            tablasJugador[indiceTabla].EsDoble = configuracion.TablasDobles;
             TableLayoutPanel tlp = ObtenerTlpPorIndice(indiceTabla)!;
 
             int indiceCarta = 0;

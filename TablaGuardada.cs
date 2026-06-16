@@ -11,6 +11,7 @@ namespace JuegoLoteriaPOO
         public string NombreJugador { get; set; }
 
         public List<int> Cartas { get; set; } = new List<int>();
+        public bool EsDoble { get; set; }
 
         // Eliminado el operador implícito inválido que causaba CS0555
         // public static implicit operator TablaGuardada(TablaGuardada v)

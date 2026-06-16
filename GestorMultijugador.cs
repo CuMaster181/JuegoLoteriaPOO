@@ -16,6 +16,7 @@ namespace JuegoLoteriaPOO
         private string bufferPendiente = "";
 
         public bool EsHost { get; private set; }
+        public bool EstaActivo { get; private set; }
 
         public async Task IniciarServidor(int puerto)
         {
@@ -26,11 +27,19 @@ namespace JuegoLoteriaPOO
                 puerto);
 
             servidor.Start();
+            EstaActivo = true;
 
-            while (true)
+            while (EstaActivo)
             {
-                TcpClient cliente =
-                    await servidor.AcceptTcpClientAsync();
+                TcpClient cliente;
+                try
+                {
+                    cliente = await servidor.AcceptTcpClientAsync();
+                }
+                catch
+                {
+                    break;
+                }
 
                 clientes.Add(cliente);
 
@@ -50,6 +59,7 @@ namespace JuegoLoteriaPOO
                 ip,
                 puerto);
 
+            EstaActivo = true;
             Escuchar(miCliente, new StringBuilder());
         }
 
@@ -118,7 +128,7 @@ namespace JuegoLoteriaPOO
                     {
                         MensajeRecibido?.Invoke(mensaje);
 
-                        if (EsHost)
+                        if (EsHost && EsMensajeClientePermitido(mensaje))
                             ReenviarATodos(mensaje + "\n", cliente);
                     }
                 }
@@ -147,8 +157,19 @@ namespace JuegoLoteriaPOO
             }
         }
 
+        private bool EsMensajeClientePermitido(string mensaje)
+        {
+            string tipo = mensaje.Split('|')[0];
+            return tipo is "CHAT"
+                or "LOTERIA"
+                or "LISTO_GANADOR"
+                or "CONFIG_REQUEST";
+        }
+
         public void Desconectar()
         {
+            EstaActivo = false;
+
             try
             {
                 if (servidor != null)

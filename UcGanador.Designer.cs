@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pnlPrincipal = new Panel();
+            lblEstadoListos = new Label();
             btnContinuar = new Button();
             dgvRanking = new DataGridView();
             lblGanador = new Label();
@@ -43,6 +44,7 @@
             // pnlPrincipal
             // 
             pnlPrincipal.BackColor = Color.WhiteSmoke;
+            pnlPrincipal.Controls.Add(lblEstadoListos);
             pnlPrincipal.Controls.Add(btnContinuar);
             pnlPrincipal.Controls.Add(dgvRanking);
             pnlPrincipal.Controls.Add(lblGanador);
@@ -52,6 +54,15 @@
             pnlPrincipal.Name = "pnlPrincipal";
             pnlPrincipal.Size = new Size(334, 489);
             pnlPrincipal.TabIndex = 0;
+            // 
+            // lblEstadoListos
+            // 
+            lblEstadoListos.AutoSize = true;
+            lblEstadoListos.Location = new Point(20, 459);
+            lblEstadoListos.Name = "lblEstadoListos";
+            lblEstadoListos.Size = new Size(56, 15);
+            lblEstadoListos.TabIndex = 4;
+            lblEstadoListos.Text = "Listos: 0/0";
             // 
             // btnContinuar
             // 
@@ -133,6 +144,7 @@
         private Label lblGanador;
         private DataGridView dgvRanking;
         private Button btnContinuar;
+        private Label lblEstadoListos;
         private DataGridViewTextBoxColumn Jugador;
         private DataGridViewTextBoxColumn puntos;
     }

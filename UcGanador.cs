@@ -34,7 +34,17 @@ namespace JuegoLoteriaPOO
 
         private void btnContinuar_Click(object sender, EventArgs e)
         {
+            btnContinuar.Enabled = false;
+            btnContinuar.Text = "Listo";
+            Continuar?.Invoke();
             NuevaPartidaSolicitada?.Invoke();
+        }
+
+        public void ActualizarEstadoListos(IEnumerable<string> jugadoresListos, IEnumerable<string> jugadoresEsperados)
+        {
+            int listos = jugadoresListos.Distinct(StringComparer.OrdinalIgnoreCase).Count();
+            int esperados = jugadoresEsperados.Distinct(StringComparer.OrdinalIgnoreCase).Count();
+            lblEstadoListos.Text = $"Listos: {listos}/{esperados}";
         }
     }
 }

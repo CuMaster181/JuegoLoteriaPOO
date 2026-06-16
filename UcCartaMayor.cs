@@ -4,6 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +20,7 @@ namespace JuegoLoteriaPOO
     {
         public event Action? Continuar;
 
-        public UcCartaMayor(List<ResultadoDesempate> resultados, ResultadoDesempate ganador)
+        public UcCartaMayor(List<ResultadoDesempate> resultados, ResultadoDesempate ganador, bool esHost = true)
         {
             InitializeComponent();
 
@@ -40,6 +46,7 @@ namespace JuegoLoteriaPOO
 
             pbCartaGanadora.Image = ganador.Carta.RutaImagen;
             pbCartaGanadora.SizeMode = PictureBoxSizeMode.Zoom;
+            btnContinuar.Enabled = esHost;
         }
 
         private void btnContinuar_Click(object sender, EventArgs e)

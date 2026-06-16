@@ -36,7 +36,7 @@
             // 
             // bttnContinuar
             // 
-            bttnContinuar.Location = new Point(46, 239);
+            bttnContinuar.Location = new Point(103, 246);
             bttnContinuar.Name = "bttnContinuar";
             bttnContinuar.Size = new Size(232, 62);
             bttnContinuar.TabIndex = 0;
@@ -46,14 +46,14 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(46, 145);
+            txtNombre.Location = new Point(103, 152);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(232, 23);
             txtNombre.TabIndex = 1;
             // 
             // bttnCancelar
             // 
-            bttnCancelar.Location = new Point(46, 307);
+            bttnCancelar.Location = new Point(103, 314);
             bttnCancelar.Name = "bttnCancelar";
             bttnCancelar.Size = new Size(232, 60);
             bttnCancelar.TabIndex = 2;
@@ -64,7 +64,7 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(46, 127);
+            lblUsuario.Location = new Point(103, 134);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(155, 15);
             lblUsuario.TabIndex = 3;

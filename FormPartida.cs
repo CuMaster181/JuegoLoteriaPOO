@@ -15,16 +15,17 @@ namespace JuegoLoteriaPOO
         private bool debeReproducirSonidoInicio = true;
         private System.Windows.Forms.Timer timerDesempate = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer timerCuentaAtras = new System.Windows.Forms.Timer();
-
-        // casillasVisuales ahora agrupa todas las tablas: CasillaTabla -> PictureBox
         private Dictionary<CasillaTabla, PictureBox> casillasVisuales = new Dictionary<CasillaTabla, PictureBox>();
-
         private List<string> jugadoresDesempate = new();
         private Dictionary<string, int> cartasGanadorasJugadores = new();
+        private HashSet<string> jugadoresConectados = new(StringComparer.OrdinalIgnoreCase);
+        private HashSet<string> jugadoresListosGanador = new(StringComparer.OrdinalIgnoreCase);
         private VerificadorDeVictoria verificador;
         private GestorPartida gestor;
         private List<ResultadoDesempate> resultados = new List<ResultadoDesempate>();
         private ResultadoDesempate? ganador;
+        private UcGanador? pantallaGanadorActual;
+        private UcCartaMayor? pantallaCartaMayorActual;
         private Jugador jugador;
         private GestorChat gestorChat;
         private GestorMultijugador red;
@@ -41,11 +42,14 @@ namespace JuegoLoteriaPOO
             this.jugador = jugador;
             this.tipoPartida = tipoPartida;
             this.conexion = conexion;
-            this.configuracion = configuracion;
+            this.configuracion = configuracion ?? new ConfiguracionPartida();
+            jugadoresConectados.Add(jugador.Nombre);
+            if (conexion != null)
+                jugadoresConectados.UnionWith(conexion.JugadoresConectados);
 
             verificador = new VerificadorDeVictoria();
             gestorChat = new GestorChat();
-            red = new GestorMultijugador();
+            red = conexion?.Red ?? new GestorMultijugador();
 
             timerDesempate.Interval = 5000;
             timerDesempate.Tick += TimerDesempate_Tick;
@@ -94,17 +98,23 @@ namespace JuegoLoteriaPOO
             {
                 try
                 {
+                    if (!red.EstaActivo)
+                    {
+                        if (conexion.EsHost)
+                        {
+                            MessageBox.Show("Esperando jugadores...");
+                            _ = red.IniciarServidor(conexion.Puerto);
+                        }
+                        else
+                        {
+                            await red.Conectar(conexion.IP, conexion.Puerto);
+                            MessageBox.Show("Conectado al host.");
+                            red.Enviar($"CONFIG_REQUEST|{jugador.Nombre}");
+                        }
+                    }
+
                     if (conexion.EsHost)
-                    {
-                        MessageBox.Show("Esperando jugadores...");
-                        _ = red.IniciarServidor(conexion.Puerto);
-                    }
-                    else
-                    {
-                        await red.Conectar(conexion.IP, conexion.Puerto);
-                        MessageBox.Show("Conectado al host.");
-                        red.Enviar($"CONNECT_CONFIG|{jugador.Nombre}|{(configuracion.TablasDobles ? "true" : "false")}");
-                    }
+                        red.Enviar(CrearMensajeConfiguracion());
                 }
                 catch (Exception ex)
                 {
@@ -115,12 +125,45 @@ namespace JuegoLoteriaPOO
             timerCartas.Stop();
             timerCuentaAtras.Stop();
             bttnPausa.Text = "Iniciar";
-            bttnPausa.Enabled = true;
+            ConfigurarControlesDePartida();
             debeReproducirSonidoInicio = true;
         }
 
-        // ─── Carga de múltiples tablas ────────────────────────────────────────
+        private bool EsHostDePartida()
+        {
+            return tipoPartida != TipoPartida.Multijugador || (conexion != null && conexion.EsHost);
+        }
 
+        private bool ValidarControlHost()
+        {
+            return EsHostDePartida();
+        }
+
+        private void ConfigurarControlesDePartida()
+        {
+            bool habilitar = EsHostDePartida();
+            bttnPausa.Enabled = habilitar;
+            btnAumento.Enabled = habilitar;
+            btnResta.Enabled = habilitar;
+            btnSiguiente.Enabled = habilitar;
+        }
+
+        private string CrearMensajeConfiguracion()
+        {
+            string valDobles = configuracion.TablasDobles ? "true" : "false";
+            string valNumTablas = configuracion.NumeroTablas.ToString();
+            string valFiguras = configuracion.SerializarFiguras();
+            return $"CONFIG|{valDobles}|{valNumTablas}|{valFiguras}";
+        }
+
+        private void AplicarVelocidad(int intervalo)
+        {
+            const int minimo = 250;
+            const int maximo = 10000;
+            timerCartas.Interval = Math.Max(minimo, Math.Min(maximo, intervalo));
+            segundosRestantes = Math.Max(1, (timerCartas.Interval + 999) / 1000);
+            lblProximaCarta.Text = $"{segundosRestantes}s";
+        }
         private void CargarTodasLasTablas()
         {
             flpTablas.Controls.Clear();
@@ -138,7 +181,7 @@ namespace JuegoLoteriaPOO
 
             int numTablas = tablas.Count;
 
-            // Tamaño de cada celda según cantidad de tablas
+            // TamaÃ±o de cada celda segÃºn cantidad de tablas
             int celdaAncho = numTablas == 1 ? 80 : numTablas == 2 ? 60 : 48;
             int celdaAlto = numTablas == 1 ? 100 : numTablas == 2 ? 75 : 60;
 
@@ -192,7 +235,7 @@ namespace JuegoLoteriaPOO
             }
         }
 
-        // ─── Audio ────────────────────────────────────────────────────────────
+        // â”€â”€â”€ Audio â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void ReproducirAudio(Carta carta)
         {
@@ -218,10 +261,12 @@ namespace JuegoLoteriaPOO
             ReproducirAudio(carta);
         }
 
-        // ─── Pausa / Inicio ───────────────────────────────────────────────────
+        // â”€â”€â”€ Pausa / Inicio â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void bttnPausa_Click(object sender, EventArgs e)
         {
+            if (!ValidarControlHost()) return;
+
             if (!timerCartas.Enabled && debeReproducirSonidoInicio)
             {
                 try
@@ -241,16 +286,15 @@ namespace JuegoLoteriaPOO
                 timerCartas.Stop();
                 timerCuentaAtras.Stop();
                 bttnPausa.Text = "Reanudar";
-                lblProximaCarta.Text = "—";
+                lblProximaCarta.Text = "â€”";
+                if (tipoPartida == TipoPartida.Multijugador)
+                    red.Enviar("PAUSA");
             }
             else
             {
                 if (tipoPartida == TipoPartida.Multijugador && conexion != null && conexion.EsHost)
                 {
-                    string valDobles = configuracion.TablasDobles ? "true" : "false";
-                    string valNumTablas = configuracion.NumeroTablas.ToString();
-                    string valFiguras = configuracion.SerializarFiguras();
-                    red.Enviar($"CONFIG|{valDobles}|{valNumTablas}|{valFiguras}");
+                    red.Enviar(CrearMensajeConfiguracion());
                 }
 
                 timerCartas.Start();
@@ -258,6 +302,9 @@ namespace JuegoLoteriaPOO
                 lblProximaCarta.Text = $"{segundosRestantes}s";
                 timerCuentaAtras.Start();
                 bttnPausa.Text = "Pausar";
+
+                if (tipoPartida == TipoPartida.Multijugador)
+                    red.Enviar($"REANUDAR|{timerCartas.Interval}");
             }
         }
 
@@ -270,7 +317,7 @@ namespace JuegoLoteriaPOO
             {
                 timerCartas.Stop();
                 timerCuentaAtras.Stop();
-                lblProximaCarta.Text = "—";
+                lblProximaCarta.Text = "â€”";
                 return;
             }
 
@@ -286,7 +333,7 @@ namespace JuegoLoteriaPOO
                 red.Enviar($"CARTA|{carta.Id}");
         }
 
-        // ─── Desempate ────────────────────────────────────────────────────────
+        // â”€â”€â”€ Desempate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void TimerDesempate_Tick(object sender, EventArgs e)
         {
@@ -317,7 +364,7 @@ namespace JuegoLoteriaPOO
                     .Where(x => x.Index != -1)
                     .ToList();
 
-                if (reclamantesConIndex.Count == 0) { MostrarPantallaDesempate(); return; }
+                if (reclamantesConIndex.Count == 0) { EnviarYMostrarPantallaDesempate(); return; }
 
                 int minIndex = reclamantesConIndex.Min(x => x.Index);
                 var empatados = reclamantesConIndex.Where(x => x.Index == minIndex).Select(x => x.Nombre).ToList();
@@ -335,9 +382,17 @@ namespace JuegoLoteriaPOO
                 else
                 {
                     jugadoresDesempate = empatados;
-                    MostrarPantallaDesempate();
+                    EnviarYMostrarPantallaDesempate();
                 }
             }
+        }
+
+        private void EnviarYMostrarPantallaDesempate()
+        {
+            if (tipoPartida == TipoPartida.Multijugador)
+                red.Enviar($"DESEMPATE|{string.Join(",", jugadoresDesempate)}");
+
+            MostrarPantallaDesempate();
         }
 
         private void MostrarPantallaDesempate()
@@ -348,6 +403,7 @@ namespace JuegoLoteriaPOO
 
             desempate.CartaMayor += () =>
             {
+                if (!ValidarControlHost()) return;
                 Controls.Remove(desempate);
                 desempate.Dispose();
                 pantallaDesempateActual = null;
@@ -356,6 +412,7 @@ namespace JuegoLoteriaPOO
 
             desempate.ContinuarPartida += () =>
             {
+                if (!ValidarControlHost()) return;
                 Controls.Remove(desempate);
                 desempate.Dispose();
                 pantallaDesempateActual = null;
@@ -393,28 +450,68 @@ namespace JuegoLoteriaPOO
 
         private void Desempate_CartaMayor()
         {
+            if (!ValidarControlHost()) return;
+
             IniciarCartaMayor();
 
-            UcCartaMayor pantalla = new UcCartaMayor(resultados, ganador!);
-            pantalla.Dock = DockStyle.Fill;
+            if (tipoPartida == TipoPartida.Multijugador)
+                red.Enviar(CrearMensajeCartaMayor());
 
+            MostrarPantallaCartaMayor(resultados, ganador!, EsHostDePartida());
+        }
+
+        private void MostrarPantallaCartaMayor(List<ResultadoDesempate> resultadosPantalla, ResultadoDesempate ganadorPantalla, bool esHost)
+        {
+            if (pantallaCartaMayorActual != null)
+            {
+                Controls.Remove(pantallaCartaMayorActual);
+                pantallaCartaMayorActual.Dispose();
+                pantallaCartaMayorActual = null;
+            }
+
+            UcCartaMayor pantalla = new UcCartaMayor(resultadosPantalla, ganadorPantalla, esHost);
+            pantalla.Dock = DockStyle.Fill;
             pantalla.Continuar += () =>
             {
+                if (!ValidarControlHost()) return;
                 Controls.Remove(pantalla);
                 pantalla.Dispose();
+                pantallaCartaMayorActual = null;
 
                 if (tipoPartida == TipoPartida.Multijugador)
-                    red.Enviar($"GANADOR|{ganador!.Jugador}");
+                    red.Enviar($"GANADOR|{ganadorPantalla.Jugador}");
 
-                MostrarGanador(ganador!.Jugador);
+                MostrarGanador(ganadorPantalla.Jugador);
             };
 
+            pantallaCartaMayorActual = pantalla;
             Controls.Add(pantalla);
             pantalla.BringToFront();
         }
 
+        private string CrearMensajeCartaMayor()
+        {
+            string datos = string.Join(",", resultados.Select(r => $"{r.Jugador}:{r.Carta.Id}"));
+            return $"CARTA_MAYOR|{ganador!.Jugador}|{datos}";
+        }
+
+        private List<ResultadoDesempate> LeerResultadosCartaMayor(string datos)
+        {
+            List<ResultadoDesempate> leidos = new List<ResultadoDesempate>();
+            foreach (string item in datos.Split(',', StringSplitOptions.RemoveEmptyEntries))
+            {
+                string[] partes = item.Split(':');
+                if (partes.Length != 2 || !int.TryParse(partes[1], out int idCarta)) continue;
+                if (!Carta.cartas.TryGetValue(idCarta, out Carta? carta)) continue;
+                leidos.Add(new ResultadoDesempate { Jugador = partes[0], Carta = carta });
+            }
+            return leidos;
+        }
+
         private void Desempate_ContinuarPartida()
         {
+            if (!ValidarControlHost()) return;
+
             if (tipoPartida == TipoPartida.Multijugador)
                 red.Enviar($"CONTINUAR|{string.Join(",", jugadoresDesempate)}");
 
@@ -424,19 +521,30 @@ namespace JuegoLoteriaPOO
         private void ContinuarSoloEmpatados()
         {
             jugadorActivo = jugadoresDesempate.Contains(jugador.Nombre);
+            pbFicha.Enabled = jugadorActivo;
+            ntnLoteria.Enabled = jugadorActivo;
+            if (!jugadorActivo)
+            {
+                fichaSeleccionada = false;
+                pbFicha.BorderStyle = BorderStyle.None;
+            }
             if (!jugadorActivo)
                 MessageBox.Show("Has quedado fuera de esta ronda.\nEspera a que termine el desempate.");
         }
 
-        // ─── Mensajes de red ──────────────────────────────────────────────────
+        // â”€â”€â”€ Mensajes de red â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void ProcesarMensajeRed(string mensaje)
         {
             if (InvokeRequired) { Invoke(() => ProcesarMensajeRed(mensaje)); return; }
 
             string[] partes = mensaje.Split('|');
+            string tipoMensaje = partes[0];
 
-            switch (partes[0])
+            if (tipoPartida == TipoPartida.Multijugador && EsHostDePartida() && EsMensajeCriticoSoloHost(tipoMensaje))
+                return;
+
+            switch (tipoMensaje)
             {
                 case "CHAT":
                     MostrarMensaje(new MensajeChat(partes[1], partes[2]));
@@ -459,8 +567,35 @@ namespace JuegoLoteriaPOO
                         pantallaDesempateActual.Dispose();
                         pantallaDesempateActual = null;
                     }
+                    if (pantallaCartaMayorActual != null)
+                    {
+                        Controls.Remove(pantallaCartaMayorActual);
+                        pantallaCartaMayorActual.Dispose();
+                        pantallaCartaMayorActual = null;
+                    }
                     GestorPuntaje.RegistrarVictoria(ganadorMensaje);
                     MostrarGanador(ganadorMensaje);
+                    break;
+
+                case "DESEMPATE":
+                    jugadoresDesempate = partes.Length > 1
+                        ? partes[1].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
+                        : new List<string>();
+                    MostrarPantallaDesempate();
+                    ContinuarSoloEmpatados();
+                    break;
+
+                case "CARTA_MAYOR":
+                    {
+                        string ganadorCartaMayor = partes[1];
+                        List<ResultadoDesempate> resultadosCartaMayor = partes.Length > 2
+                            ? LeerResultadosCartaMayor(partes[2])
+                            : new List<ResultadoDesempate>();
+                        ResultadoDesempate? ganadorResultado = resultadosCartaMayor
+                            .FirstOrDefault(r => r.Jugador.Equals(ganadorCartaMayor, StringComparison.OrdinalIgnoreCase));
+                        if (ganadorResultado != null)
+                            MostrarPantallaCartaMayor(resultadosCartaMayor, ganadorResultado, false);
+                    }
                     break;
 
                 case "REINICIAR":
@@ -497,6 +632,21 @@ namespace JuegoLoteriaPOO
                     ContinuarSoloEmpatados();
                     break;
 
+                case "LISTO_GANADOR":
+                    if (partes.Length > 1)
+                        RegistrarListoGanador(partes[1]);
+                    break;
+
+                case "LISTOS_GANADOR_ESTADO":
+                    jugadoresListosGanador = partes.Length > 1
+                        ? partes[1].Split(',', StringSplitOptions.RemoveEmptyEntries).ToHashSet(StringComparer.OrdinalIgnoreCase)
+                        : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                    jugadoresConectados = partes.Length > 2
+                        ? partes[2].Split(',', StringSplitOptions.RemoveEmptyEntries).ToHashSet(StringComparer.OrdinalIgnoreCase)
+                        : jugadoresConectados;
+                    ActualizarPantallaListosGanador();
+                    break;
+
                 case "PUNTAJE":
                     GestorPuntaje.RegistrarVictoria(partes[1]);
                     break;
@@ -524,8 +674,38 @@ namespace JuegoLoteriaPOO
                             configuracion.FigurasHabilitadas = figurasRecibidas;
                     }
                     break;
+                case "PAUSA":
+                    timerCartas.Stop();
+                    timerCuentaAtras.Stop();
+                    bttnPausa.Text = "Reanudar";
+                    lblProximaCarta.Text = "—";
+                    break;
+
+                case "REANUDAR":
+                    if (partes.Length > 1 && int.TryParse(partes[1], out int intervaloReanudar))
+                        AplicarVelocidad(intervaloReanudar);
+                    timerCuentaAtras.Start();
+                    bttnPausa.Text = "Pausar";
+                    break;
+
+                case "VELOCIDAD":
+                    if (partes.Length > 1 && int.TryParse(partes[1], out int intervalo))
+                        AplicarVelocidad(intervalo);
+                    break;
+
+                case "CONFIG_REQUEST":
+                    if (partes.Length > 1)
+                    {
+                        jugadoresConectados.Add(partes[1]);
+                        conexion?.JugadoresConectados.Add(partes[1]);
+                    }
+                    if (conexion != null && conexion.EsHost)
+                        red.Enviar(CrearMensajeConfiguracion());
+                    break;
+
 
                 case "CONNECT_CONFIG":
+
                     break;
 
                 case "KICK":
@@ -534,7 +714,7 @@ namespace JuegoLoteriaPOO
                         string motivo = partes[2];
                         if (targetName == jugador.Nombre)
                         {
-                            MessageBox.Show(motivo, "Conexión rechazada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(motivo, "ConexiÃ³n rechazada", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             this.Close();
                         }
                     }
@@ -542,7 +722,7 @@ namespace JuegoLoteriaPOO
             }
         }
 
-        // ─── Drag & Drop de ficha ─────────────────────────────────────────────
+        // â”€â”€â”€ Drag & Drop de ficha â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void Casilla_DragEnter(object sender, DragEventArgs e)
         {
@@ -582,7 +762,7 @@ namespace JuegoLoteriaPOO
                 imagenAnterior.Dispose();
         }
 
-        // ─── Lotería ─────────────────────────────────────────────────────────
+        // â”€â”€â”€ LoterÃ­a â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void btnLoteria_Click(object sender, EventArgs e)
         {
@@ -607,7 +787,7 @@ namespace JuegoLoteriaPOO
 
             if (victoriaEncontrada == null)
             {
-                MessageBox.Show("No tienes ninguna figura válida.");
+                MessageBox.Show("No tienes ninguna figura vÃ¡lida.");
                 return;
             }
 
@@ -636,26 +816,90 @@ namespace JuegoLoteriaPOO
 
             cartasGanadorasJugadores[jugador.Nombre] = cartaGanadora.Id;
             red.Enviar($"LOTERIA|{jugador.Nombre}|{cartaGanadora.Id}");
-            MessageBox.Show("Lotería registrada.\nEsperando posibles empates...");
+            MessageBox.Show("LoterÃ­a registrada.\nEsperando posibles empates...");
         }
 
-        // ─── Mostrar ganador / reiniciar ──────────────────────────────────────
+        // â”€â”€â”€ Mostrar ganador / reiniciar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void MostrarGanador(string nombreGanador)
         {
+            jugadoresListosGanador.Clear();
+            jugadoresConectados.Add(jugador.Nombre);
+            if (conexion != null)
+                jugadoresConectados.UnionWith(conexion.JugadoresConectados);
+
             UcGanador ucGanador = new UcGanador(nombreGanador);
             ucGanador.Dock = DockStyle.Fill;
-            ucGanador.NuevaPartidaSolicitada += () => ReiniciarDesdeGanador();
+            ucGanador.Continuar += () => ConfirmarContinuarGanador();
+            if (tipoPartida != TipoPartida.Multijugador)
+                ucGanador.NuevaPartidaSolicitada += () => ReiniciarDesdeGanador();
 
             pnlGanador.Controls.Clear();
             pnlGanador.Controls.Add(ucGanador);
+            pantallaGanadorActual = ucGanador;
+            ActualizarPantallaListosGanador();
             pnlGanador.Enabled = true;
             pnlGanador.Visible = true;
             pnlGanador.BringToFront();
         }
 
+        private void ConfirmarContinuarGanador()
+        {
+            if (tipoPartida != TipoPartida.Multijugador)
+                return;
+
+            RegistrarListoGanador(jugador.Nombre);
+            if (!EsHostDePartida())
+                red.Enviar($"LISTO_GANADOR|{jugador.Nombre}");
+        }
+
+        private void RegistrarListoGanador(string nombreJugador)
+        {
+            if (string.IsNullOrWhiteSpace(nombreJugador)) return;
+
+            jugadoresConectados.Add(nombreJugador);
+            jugadoresListosGanador.Add(nombreJugador);
+            ActualizarPantallaListosGanador();
+
+            if (EsHostDePartida())
+            {
+                red.Enviar($"LISTOS_GANADOR_ESTADO|{string.Join(",", jugadoresListosGanador)}|{string.Join(",", jugadoresConectados)}");
+                IniciarNuevaRondaSiTodosListos();
+            }
+        }
+
+        private bool EsMensajeCriticoSoloHost(string tipoMensaje)
+        {
+            return tipoMensaje is "GANADOR"
+                or "DESEMPATE"
+                or "CARTA_MAYOR"
+                or "CONTINUAR"
+                or "REINICIAR"
+                or "NUEVARONDA"
+                or "PAUSA"
+                or "REANUDAR"
+                or "VELOCIDAD"
+                or "CARTA";
+        }
+
+        private void ActualizarPantallaListosGanador()
+        {
+            pantallaGanadorActual?.ActualizarEstadoListos(jugadoresListosGanador, jugadoresConectados);
+        }
+
+        private void IniciarNuevaRondaSiTodosListos()
+        {
+            if (!EsHostDePartida()) return;
+            if (jugadoresConectados.Count == 0) return;
+            if (!jugadoresConectados.All(j => jugadoresListosGanador.Contains(j))) return;
+
+            red.Enviar("NUEVARONDA");
+            ReiniciarPartida();
+        }
+
         private void pbFicha_MouseDown(object sender, MouseEventArgs e)
         {
+            if (!jugadorActivo) return;
             pbFicha.DoDragDrop("FICHA", DragDropEffects.Copy);
         }
 
@@ -735,18 +979,26 @@ namespace JuegoLoteriaPOO
             jugadorActivo = true;
             esperandoDesempate = false;
             jugadoresDesempate.Clear();
+            jugadoresListosGanador.Clear();
+            pantallaGanadorActual = null;
+            pantallaCartaMayorActual = null;
             timerCartas.Stop();
             timerCuentaAtras.Stop();
             gestor = new GestorPartida();
             LimpiarHistorial();
             ReiniciarTabla();
             bttnPausa.Text = "Iniciar";
-            bttnPausa.Enabled = true;
+            ConfigurarControlesDePartida();
             fichaSeleccionada = false;
             pbFicha.BorderStyle = BorderStyle.None;
-            lblProximaCarta.Text = "—";
+            pbFicha.Enabled = true;
+            ntnLoteria.Enabled = true;
+            lblProximaCarta.Text = "â€”";
             segundosRestantes = 0;
             debeReproducirSonidoInicio = true;
+            pnlGanador.Controls.Clear();
+            pnlGanador.Visible = false;
+            pnlGanador.Enabled = false;
             if (Properties.Resources.CartaPosterior != null)
             {
                 pbCartaActual.Image = Properties.Resources.CartaPosterior;
@@ -760,6 +1012,8 @@ namespace JuegoLoteriaPOO
 
         private void ReiniciarDesdeGanador()
         {
+            if (!ValidarControlHost()) return;
+
             foreach (Control c in pnlGanador.Controls.OfType<UcGanador>().ToList())
             {
                 pnlGanador.Controls.Remove(c);
@@ -779,10 +1033,11 @@ namespace JuegoLoteriaPOO
             }
         }
 
-        // ─── Ficha ────────────────────────────────────────────────────────────
+        // â”€â”€â”€ Ficha â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void pbFicha_Click(object sender, EventArgs e)
         {
+            if (!jugadorActivo) return;
             fichaSeleccionada = !fichaSeleccionada;
             pbFicha.BorderStyle = fichaSeleccionada ? BorderStyle.Fixed3D : BorderStyle.None;
         }
@@ -849,10 +1104,12 @@ namespace JuegoLoteriaPOO
             return resultado;
         }
 
-        // ─── Velocidad ────────────────────────────────────────────────────────
+        // â”€â”€â”€ Velocidad â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         private void btnAumento_Click(object sender, EventArgs e)
         {
+            if (!ValidarControlHost()) return;
+
             const int paso = 250;
             const int minimo = 250;
             int nuevo = Math.Max(minimo, timerCartas.Interval - paso);
@@ -861,11 +1118,15 @@ namespace JuegoLoteriaPOO
                 timerCartas.Interval = nuevo;
                 segundosRestantes = Math.Max(1, (timerCartas.Interval + 999) / 1000);
                 lblProximaCarta.Text = $"{segundosRestantes}s";
+                if (tipoPartida == TipoPartida.Multijugador)
+                    red.Enviar($"VELOCIDAD|{timerCartas.Interval}");
             }
         }
 
         private void btnResta_Click(object sender, EventArgs e)
         {
+            if (!ValidarControlHost()) return;
+
             const int paso = 250;
             const int maximo = 10000;
             int nuevo = Math.Min(maximo, timerCartas.Interval + paso);
@@ -874,11 +1135,15 @@ namespace JuegoLoteriaPOO
                 timerCartas.Interval = nuevo;
                 segundosRestantes = Math.Max(1, (timerCartas.Interval + 999) / 1000);
                 lblProximaCarta.Text = $"{segundosRestantes}s";
+                if (tipoPartida == TipoPartida.Multijugador)
+                    red.Enviar($"VELOCIDAD|{timerCartas.Interval}");
             }
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+            if (!ValidarControlHost()) return;
+
             Carta carta = gestor.SiguienteCarta();
             if (carta != null)
             {
@@ -906,4 +1171,3 @@ namespace JuegoLoteriaPOO
         }
     }
 }
-

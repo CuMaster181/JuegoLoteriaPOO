@@ -96,13 +96,15 @@ namespace JuegoLoteriaPOO
             }
         }
 
-        private void bttnConectar_Click(object sender, EventArgs e)
+        private async void bttnConectar_Click(object sender, EventArgs e)
         {
             if (!rbHost.Checked && !rbCliente.Checked)
             {
                 MessageBox.Show("Selecciona si eres Host o Cliente.");
                 return;
             }
+
+            bttnConectar.Enabled = false;
 
             if (rbHost.Checked)
             {
@@ -121,16 +123,11 @@ namespace JuegoLoteriaPOO
                 if (figurasSeleccionadas.Count == 0)
                 {
                     MessageBox.Show("Selecciona al menos una forma de ganar.");
+                    bttnConectar.Enabled = true;
                     return;
                 }
 
                 configuracion.FigurasHabilitadas = figurasSeleccionadas;
-            }
-            else
-            {
-                configuracion.NumeroTablas = 1;
-                configuracion.TablasDobles = false;
-                configuracion.FigurasHabilitadas = ConfiguracionPartida.ObtenerTodasLasFiguras();
             }
 
             Conexion conexion = new Conexion
@@ -140,7 +137,92 @@ namespace JuegoLoteriaPOO
                 EsHost = rbHost.Checked
             };
 
-            ConexionCompletada?.Invoke(jugador, conexion, tipoPartida, configuracion);
+            GestorMultijugador red = new GestorMultijugador();
+            conexion.JugadoresConectados.Add(jugador.Nombre);
+            conexion.Red = red;
+
+            try
+            {
+                if (conexion.EsHost)
+                {
+                    red.MensajeRecibido += mensaje =>
+                    {
+                        if (mensaje.StartsWith("CONFIG_REQUEST|"))
+                        {
+                            string[] partes = mensaje.Split('|');
+                            if (partes.Length > 1)
+                                conexion.JugadoresConectados.Add(partes[1]);
+                            red.Enviar(CrearMensajeConfiguracion());
+                        }
+                    };
+
+                    _ = red.IniciarServidor(conexion.Puerto);
+                    ConexionCompletada?.Invoke(jugador, conexion, tipoPartida, configuracion);
+                }
+                else
+                {
+                    TaskCompletionSource<ConfiguracionPartida> configRecibida = new TaskCompletionSource<ConfiguracionPartida>();
+
+                    red.MensajeRecibido += mensaje =>
+                    {
+                        if (mensaje.StartsWith("CONFIG|"))
+                        {
+                            ConfiguracionPartida cfg = LeerConfiguracionDesdeMensaje(mensaje);
+                            configRecibida.TrySetResult(cfg);
+                        }
+                    };
+
+                    await red.Conectar(conexion.IP, conexion.Puerto);
+                    red.Enviar($"CONFIG_REQUEST|{jugador.Nombre}");
+
+                    Task espera = await Task.WhenAny(configRecibida.Task, Task.Delay(5000));
+                    if (espera != configRecibida.Task)
+                    {
+                        red.Desconectar();
+                        MessageBox.Show("No se recibió la configuración del Host.");
+                        bttnConectar.Enabled = true;
+                        return;
+                    }
+
+                    configuracion = await configRecibida.Task;
+                    ConexionCompletada?.Invoke(jugador, conexion, tipoPartida, configuracion);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                bttnConectar.Enabled = true;
+            }
+        }
+
+        private string CrearMensajeConfiguracion()
+        {
+            string valDobles = configuracion.TablasDobles ? "true" : "false";
+            string valNumTablas = configuracion.NumeroTablas.ToString();
+            string valFiguras = configuracion.SerializarFiguras();
+            return $"CONFIG|{valDobles}|{valNumTablas}|{valFiguras}";
+        }
+
+        private ConfiguracionPartida LeerConfiguracionDesdeMensaje(string mensaje)
+        {
+            string[] partes = mensaje.Split('|');
+            ConfiguracionPartida cfg = new ConfiguracionPartida();
+
+            if (partes.Length > 1)
+                cfg.TablasDobles = bool.Parse(partes[1]);
+
+            if (partes.Length > 2 && int.TryParse(partes[2], out int numTablas))
+                cfg.NumeroTablas = Math.Max(1, Math.Min(4, numTablas));
+
+            if (partes.Length > 3)
+            {
+                HashSet<TipoVictoria> figuras = ConfiguracionPartida.DeserializarFiguras(partes[3]);
+                cfg.FigurasHabilitadas = figuras.Count > 0
+                    ? figuras
+                    : ConfiguracionPartida.ObtenerTodasLasFiguras();
+            }
+
+            return cfg;
         }
 
         private void bttncancelar_Click(object sender, EventArgs e)

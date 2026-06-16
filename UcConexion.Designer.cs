@@ -33,21 +33,21 @@
             // 
             // txtIP
             // 
-            txtIP.Location = new Point(158, 73);
+            txtIP.Location = new Point(154, 60);
             txtIP.Name = "txtIP";
             txtIP.Size = new Size(170, 23);
             txtIP.TabIndex = 0;
             // 
             // txtPuerto
             // 
-            txtPuerto.Location = new Point(158, 127);
+            txtPuerto.Location = new Point(154, 114);
             txtPuerto.Name = "txtPuerto";
             txtPuerto.Size = new Size(170, 23);
             txtPuerto.TabIndex = 1;
             // 
             // bttnConectar
             // 
-            bttnConectar.Location = new Point(158, 510);
+            bttnConectar.Location = new Point(154, 497);
             bttnConectar.Name = "bttnConectar";
             bttnConectar.Size = new Size(170, 23);
             bttnConectar.TabIndex = 2;
@@ -57,7 +57,7 @@
             // 
             // bttncancelar
             // 
-            bttncancelar.Location = new Point(158, 545);
+            bttncancelar.Location = new Point(154, 532);
             bttncancelar.Name = "bttncancelar";
             bttncancelar.Size = new Size(170, 23);
             bttncancelar.TabIndex = 3;
@@ -68,7 +68,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(158, 55);
+            label1.Location = new Point(154, 42);
             label1.Name = "label1";
             label1.Size = new Size(20, 15);
             label1.TabIndex = 4;
@@ -77,7 +77,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(158, 109);
+            label2.Location = new Point(154, 96);
             label2.Name = "label2";
             label2.Size = new Size(52, 15);
             label2.TabIndex = 5;
@@ -108,26 +108,26 @@
             // lblNumeroTablas
             // 
             lblNumeroTablas.AutoSize = true;
-            lblNumeroTablas.Location = new Point(158, 162);
+            lblNumeroTablas.Location = new Point(154, 149);
             lblNumeroTablas.Name = "lblNumeroTablas";
-            lblNumeroTablas.Size = new Size(108, 15);
+            lblNumeroTablas.Size = new Size(104, 15);
             lblNumeroTablas.TabIndex = 8;
             lblNumeroTablas.Text = "Número de tablas:";
             // 
             // nudNumeroTablas
             // 
-            nudNumeroTablas.Location = new Point(278, 160);
-            nudNumeroTablas.Minimum = 1;
-            nudNumeroTablas.Maximum = 4;
-            nudNumeroTablas.Value = 1;
+            nudNumeroTablas.Location = new Point(274, 147);
+            nudNumeroTablas.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
+            nudNumeroTablas.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudNumeroTablas.Name = "nudNumeroTablas";
             nudNumeroTablas.Size = new Size(50, 23);
             nudNumeroTablas.TabIndex = 9;
+            nudNumeroTablas.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // chkTablasDobles
             // 
             chkTablasDobles.AutoSize = true;
-            chkTablasDobles.Location = new Point(158, 192);
+            chkTablasDobles.Location = new Point(154, 179);
             chkTablasDobles.Name = "chkTablasDobles";
             chkTablasDobles.Size = new Size(98, 19);
             chkTablasDobles.TabIndex = 10;
@@ -137,7 +137,7 @@
             // lblFiguras
             // 
             lblFiguras.AutoSize = true;
-            lblFiguras.Location = new Point(158, 222);
+            lblFiguras.Location = new Point(154, 209);
             lblFiguras.Name = "lblFiguras";
             lblFiguras.Size = new Size(98, 15);
             lblFiguras.TabIndex = 11;
@@ -147,9 +147,9 @@
             // 
             clbFiguras.CheckOnClick = true;
             clbFiguras.FormattingEnabled = true;
-            clbFiguras.Location = new Point(158, 240);
+            clbFiguras.Location = new Point(154, 227);
             clbFiguras.Name = "clbFiguras";
-            clbFiguras.Size = new Size(196, 255);
+            clbFiguras.Size = new Size(196, 238);
             clbFiguras.TabIndex = 12;
             // 
             // UcConexion
